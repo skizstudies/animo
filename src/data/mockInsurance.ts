@@ -27,14 +27,14 @@ export const INSURANCE_CASES: InsuranceCase[] = [
     id: "case-1",
     farmId: "farm-1",
     farmerName: "Mang Tomas Reyes",
-    stage: "evidence",
+    stage: "compiled",
     consented: true,
     messages: [
       { id: "m1", from: "agent", text: "Kumusta po kayo, Mang Tomas? Nakita namin sa satellite na tumama ang bagyo sa lugar niyo.", timeLabel: "10:14 AM" },
       { id: "m2", from: "farmer", text: "Ayos lang po kami, pero nasira po yung bukid namin.", timeLabel: "10:22 AM" },
       { id: "m3", from: "agent", text: "Pasensya na po. Gusto niyo po ba na i-file namin ang insurance claim niyo sa PCIC? Kami na po ang bahala sa mga papeles.", timeLabel: "10:23 AM" },
       { id: "m4", from: "farmer", text: "Opo, sige po.", timeLabel: "10:31 AM" },
-      { id: "m5", from: "agent", text: "Salamat po! Kinukuha na namin ang satellite evidence ng bukid niyo — ihahanda namin ang report.", timeLabel: "10:31 AM" },
+      { id: "m5", from: "agent", text: "Salamat po! Nakumpleto na po namin ang mga dokumento at satellite evidence ng bukid niyo. Puwede na po kayong pumunta sa amin para i-verify bago namin ipadala sa PCIC.", timeLabel: "11:02 AM" },
     ],
   },
   {
@@ -43,6 +43,7 @@ export const INSURANCE_CASES: InsuranceCase[] = [
     farmerName: "Ligaya Cruz",
     stage: "sent",
     consented: true,
+    referenceNo: "PCIC-2026-551204",
     messages: [
       { id: "m1", from: "agent", text: "Kumusta po kayo, Aling Ligaya? Malubha ang tama ng bagyo sa Balagtas.", timeLabel: "09:40 AM" },
       { id: "m2", from: "farmer", text: "Grabe po talaga, halos lahat po ng palay namin nasira.", timeLabel: "09:52 AM" },

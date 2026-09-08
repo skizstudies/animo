@@ -1,21 +1,22 @@
 import type { AffectedFarm, InsuranceCase, PipelineStage } from "../../types";
-import { MapPinIcon } from "../layout/icons";
+import { DocumentIcon, MapPinIcon } from "../layout/icons";
 
 interface CasePipelineListProps {
   cases: InsuranceCase[];
   farms: AffectedFarm[];
   selectedCaseId: string | null;
   onSelectCase: (caseId: string) => void;
+  onReviewCase: (caseId: string) => void;
   onViewFarm: (farmId: string) => void;
 }
 
-const STAGE_ORDER: PipelineStage[] = ["messaged", "replied", "consent", "evidence", "sent"];
+const STAGE_ORDER: PipelineStage[] = ["messaged", "replied", "consent", "compiled", "sent"];
 
 const STAGE_LABEL: Record<PipelineStage, string> = {
   messaged: "Awaiting reply",
   replied: "Awaiting consent",
-  consent: "Consent given",
-  evidence: "Gathering evidence",
+  consent: "Gathering evidence",
+  compiled: "Ready for review",
   sent: "Sent to PCIC",
 };
 
@@ -24,16 +25,20 @@ function StageProgress({ stage }: { stage: PipelineStage }) {
   return (
     <div className="flex gap-1">
       {STAGE_ORDER.map((s, i) => (
-        <span
-          key={s}
-          className={`h-1.5 w-5 rounded-full ${i < filled ? "bg-success" : "bg-divider"}`}
-        />
+        <span key={s} className={`h-1.5 w-5 rounded-full ${i < filled ? "bg-success" : "bg-divider"}`} />
       ))}
     </div>
   );
 }
 
-export function CasePipelineList({ cases, farms, selectedCaseId, onSelectCase, onViewFarm }: CasePipelineListProps) {
+export function CasePipelineList({
+  cases,
+  farms,
+  selectedCaseId,
+  onSelectCase,
+  onReviewCase,
+  onViewFarm,
+}: CasePipelineListProps) {
   return (
     <div className="panel-corners flex flex-1 flex-col rounded-[6px] border border-border bg-card p-5 shadow-[var(--shadow-sm)]">
       <div className="mb-3 shrink-0">
@@ -49,17 +54,19 @@ export function CasePipelineList({ cases, farms, selectedCaseId, onSelectCase, o
         {cases.map((c) => {
           const farm = farms.find((f) => f.farmId === c.farmId);
           const active = c.id === selectedCaseId;
+          const needsReview = c.stage === "compiled";
+          const sent = c.stage === "sent";
           return (
             <div
               key={c.id}
-              className={`flex items-center gap-2 rounded-[6px] border pr-2 transition-colors ${
+              className={`flex flex-wrap items-center gap-2 rounded-[6px] border p-2 transition-colors ${
                 active ? "border-success/35 bg-success/6" : "border-border bg-bg"
               }`}
             >
               <button
                 type="button"
                 onClick={() => onSelectCase(c.id)}
-                className="flex flex-1 items-center gap-3 px-3 py-2.5 text-left"
+                className="flex flex-1 items-center gap-3 px-1 py-0.5 text-left"
               >
                 <div className="min-w-0 flex-1">
                   <div className="truncate text-[13px] font-bold text-ink">{c.farmerName}</div>
@@ -69,11 +76,35 @@ export function CasePipelineList({ cases, farms, selectedCaseId, onSelectCase, o
                     </div>
                   )}
                 </div>
-                <div className="flex shrink-0 flex-col items-end gap-1">
-                  <span className="font-mono text-[10.5px] font-bold text-ink-soft">{STAGE_LABEL[c.stage]}</span>
-                  <StageProgress stage={c.stage} />
-                </div>
+                {!needsReview && (
+                  <div className="flex shrink-0 flex-col items-end gap-1">
+                    <span className="font-mono text-[10.5px] font-bold text-ink-soft">{STAGE_LABEL[c.stage]}</span>
+                    <StageProgress stage={c.stage} />
+                  </div>
+                )}
               </button>
+
+              {needsReview && (
+                <button
+                  type="button"
+                  onClick={() => onReviewCase(c.id)}
+                  className="flex shrink-0 items-center gap-1.5 rounded-[4px] bg-sidebar px-3 py-2 font-mono text-[11px] font-bold text-white hover:bg-sidebar-deep"
+                >
+                  <DocumentIcon className="h-3.5 w-3.5" />
+                  Review documents
+                </button>
+              )}
+              {sent && (
+                <button
+                  type="button"
+                  onClick={() => onReviewCase(c.id)}
+                  className="flex shrink-0 items-center gap-1 font-mono text-[10.5px] font-bold text-ink-soft hover:text-ink"
+                >
+                  <DocumentIcon className="h-3.5 w-3.5" />
+                  View
+                </button>
+              )}
+
               <button
                 type="button"
                 title="View on Farm Map"

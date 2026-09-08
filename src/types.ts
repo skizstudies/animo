@@ -36,7 +36,7 @@ export interface Farm {
   status: "active" | "inactive";
 }
 
-export type PipelineStage = "messaged" | "replied" | "consent" | "evidence" | "sent";
+export type PipelineStage = "messaged" | "replied" | "consent" | "compiled" | "sent";
 
 export interface ConversationMessage {
   id: string;
@@ -52,6 +52,9 @@ export interface InsuranceCase {
   stage: PipelineStage;
   consented: boolean;
   messages: ConversationMessage[];
+  /** Set once the package is sent — either seeded already-sent, or filled in
+   * client-side the moment an officer approves a compiled case. */
+  referenceNo?: string;
 }
 
 export interface DamageReportSection {
