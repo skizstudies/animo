@@ -1,11 +1,12 @@
 import type { AffectedFarm } from "../../types";
-import { CheckCircleIcon } from "../layout/icons";
+import { CheckCircleIcon, MapPinIcon } from "../layout/icons";
 
 interface AffectedFarmListProps {
   farms: AffectedFarm[];
   selectedIds: Set<string>;
   onToggle: (id: string) => void;
   onToggleAll: () => void;
+  onViewFarm: (farmId: string) => void;
   locked: boolean;
 }
 
@@ -15,7 +16,7 @@ function lossPillClass(pct: number) {
   return "bg-success/12 text-text-success";
 }
 
-export function AffectedFarmList({ farms, selectedIds, onToggle, onToggleAll, locked }: AffectedFarmListProps) {
+export function AffectedFarmList({ farms, selectedIds, onToggle, onToggleAll, onViewFarm, locked }: AffectedFarmListProps) {
   const allSelected = selectedIds.size === farms.length;
 
   return (
@@ -44,32 +45,44 @@ export function AffectedFarmList({ farms, selectedIds, onToggle, onToggleAll, lo
         {farms.map((farm) => {
           const checked = selectedIds.has(farm.id);
           return (
-            <button
+            <div
               key={farm.id}
-              type="button"
-              disabled={locked}
-              onClick={() => onToggle(farm.id)}
-              className={`flex items-center gap-3 rounded-[6px] border px-3 py-2.5 text-left transition-colors ${
+              className={`flex items-center gap-2 rounded-[6px] border pr-2 transition-colors ${
                 checked ? "border-success/30 bg-success/6" : "border-border bg-bg"
-              } ${locked ? "cursor-default" : "hover:border-success/40"}`}
+              }`}
             >
-              <span
-                className={`flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-[5px] border-2 ${
-                  checked ? "border-success bg-success text-white" : "border-border text-transparent"
-                }`}
+              <button
+                type="button"
+                disabled={locked}
+                onClick={() => onToggle(farm.id)}
+                className={`flex flex-1 items-center gap-3 px-3 py-2.5 text-left ${locked ? "cursor-default" : ""}`}
               >
-                <CheckCircleIcon className="h-3 w-3" strokeWidth={3} />
-              </span>
-              <div className="min-w-0 flex-1">
-                <div className="truncate text-[13px] font-bold text-ink">{farm.farmerName}</div>
-                <div className="text-[11.5px] text-ink-soft">
-                  {farm.crop} · {farm.areaHa.toFixed(1)} ha
+                <span
+                  className={`flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-[5px] border-2 ${
+                    checked ? "border-success bg-success text-white" : "border-border text-transparent"
+                  }`}
+                >
+                  <CheckCircleIcon className="h-3 w-3" strokeWidth={3} />
+                </span>
+                <div className="min-w-0 flex-1">
+                  <div className="truncate text-[13px] font-bold text-ink">{farm.farmerName}</div>
+                  <div className="text-[11.5px] text-ink-soft">
+                    {farm.crop} · {farm.areaHa.toFixed(1)} ha
+                  </div>
                 </div>
-              </div>
-              <span className={`shrink-0 rounded-[20px] px-2.5 py-1 font-mono text-[11px] font-bold ${lossPillClass(farm.estimatedLossPct)}`}>
-                {farm.estimatedLossPct}% loss
-              </span>
-            </button>
+                <span className={`shrink-0 rounded-[20px] px-2.5 py-1 font-mono text-[11px] font-bold ${lossPillClass(farm.estimatedLossPct)}`}>
+                  {farm.estimatedLossPct}% loss
+                </span>
+              </button>
+              <button
+                type="button"
+                title="View on Farm Map"
+                onClick={() => onViewFarm(farm.farmId)}
+                className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[6px] text-ink-soft hover:bg-hover hover:text-ink"
+              >
+                <MapPinIcon className="h-4 w-4" />
+              </button>
+            </div>
           );
         })}
       </div>

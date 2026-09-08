@@ -20,10 +20,20 @@ export interface HazardEvent {
 
 export interface AffectedFarm {
   id: string;
+  farmId: string;
   farmerName: string;
   crop: string;
   areaHa: number;
   estimatedLossPct: number;
+}
+
+export interface Farm {
+  id: string;
+  farmerName: string;
+  barangay: string;
+  crop: string;
+  areaHa: number;
+  status: "active" | "inactive";
 }
 
 export interface BuyerGap {
@@ -39,6 +49,7 @@ export interface BuyerGap {
 
 export interface FarmerCandidate {
   id: string;
+  farmId: string;
   farmerName: string;
   crop: string;
   surplusT: number;

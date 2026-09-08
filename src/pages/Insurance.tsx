@@ -12,7 +12,11 @@ function makeReferenceNo() {
   return `PCIC-${new Date().getFullYear()}-${n}`;
 }
 
-export function Insurance() {
+interface InsuranceProps {
+  onViewFarm: (farmId: string) => void;
+}
+
+export function Insurance({ onViewFarm }: InsuranceProps) {
   const [step, setStep] = useState<Step>("gather");
   const [selectedIds, setSelectedIds] = useState<Set<string>>(() => new Set(AFFECTED_FARMS.map((f) => f.id)));
   const [submitted, setSubmitted] = useState(false);
@@ -52,6 +56,7 @@ export function Insurance() {
               selectedIds={selectedIds}
               onToggle={toggleFarm}
               onToggleAll={toggleAll}
+              onViewFarm={onViewFarm}
               locked={false}
             />
           </div>

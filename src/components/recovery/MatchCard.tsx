@@ -1,5 +1,5 @@
 import type { ScoredMatch } from "../../types";
-import { CheckCircleIcon } from "../layout/icons";
+import { CheckCircleIcon, MapPinIcon } from "../layout/icons";
 
 interface MatchCardProps {
   rank: number;
@@ -7,6 +7,7 @@ interface MatchCardProps {
   approved: boolean;
   disabled: boolean;
   onApprove: () => void;
+  onViewFarm: () => void;
 }
 
 function scoreClass(score: number) {
@@ -15,7 +16,7 @@ function scoreClass(score: number) {
   return "bg-hover text-ink-soft";
 }
 
-export function MatchCard({ rank, match, approved, disabled, onApprove }: MatchCardProps) {
+export function MatchCard({ rank, match, approved, disabled, onApprove, onViewFarm }: MatchCardProps) {
   return (
     <div
       className={`rounded-[6px] border px-4 py-3.5 transition-colors ${
@@ -42,9 +43,19 @@ export function MatchCard({ rank, match, approved, disabled, onApprove }: MatchC
             </div>
           </div>
         </div>
-        <span className={`shrink-0 rounded-[20px] px-2.5 py-1 font-mono text-[11.5px] font-bold ${scoreClass(match.score)}`}>
-          {match.score}
-        </span>
+        <div className="flex shrink-0 items-center gap-2">
+          <span className={`rounded-[20px] px-2.5 py-1 font-mono text-[11.5px] font-bold ${scoreClass(match.score)}`}>
+            {match.score}
+          </span>
+          <button
+            type="button"
+            title="View on Farm Map"
+            onClick={onViewFarm}
+            className="flex h-7 w-7 items-center justify-center rounded-[6px] text-ink-soft hover:bg-hover hover:text-ink"
+          >
+            <MapPinIcon className="h-4 w-4" />
+          </button>
+        </div>
       </div>
 
       <div className="mt-2.5 flex flex-wrap gap-1.5">

@@ -24,11 +24,11 @@ export const BUYER_GAPS: BuyerGap[] = [
 ];
 
 export const FARMER_CANDIDATES: FarmerCandidate[] = [
-  { id: "c1", farmerName: "Bayani Ocampo", crop: "Rice", surplusT: 1.6, distanceKm: 3.2, reliabilityPct: 96 },
-  { id: "c2", farmerName: "Corazon Dizon", crop: "Rice", surplusT: 2.1, distanceKm: 5.8, reliabilityPct: 89 },
-  { id: "c3", farmerName: "Felipe Ramos", crop: "Rice", surplusT: 1.1, distanceKm: 1.4, reliabilityPct: 91 },
-  { id: "c4", farmerName: "Marites Aquino", crop: "Corn", surplusT: 3.0, distanceKm: 2.0, reliabilityPct: 85 },
-  { id: "c5", farmerName: "Josefina Lim", crop: "Vegetables", surplusT: 0.5, distanceKm: 2.6, reliabilityPct: 93 },
-  { id: "c6", farmerName: "Danilo Torres", crop: "Vegetables", surplusT: 0.4, distanceKm: 4.1, reliabilityPct: 88 },
-  { id: "c7", farmerName: "Wilhelmina Cruz", crop: "Rice", surplusT: 0.6, distanceKm: 7.5, reliabilityPct: 97 },
+  { id: "c1", farmId: "farm-6", farmerName: "Bayani Ocampo", crop: "Rice", surplusT: 1.6, distanceKm: 3.2, reliabilityPct: 96 },
+  { id: "c2", farmId: "farm-7", farmerName: "Corazon Dizon", crop: "Rice", surplusT: 2.1, distanceKm: 5.8, reliabilityPct: 89 },
+  { id: "c3", farmId: "farm-8", farmerName: "Felipe Ramos", crop: "Rice", surplusT: 1.1, distanceKm: 1.4, reliabilityPct: 91 },
+  { id: "c4", farmId: "farm-9", farmerName: "Marites Aquino", crop: "Corn", surplusT: 3.0, distanceKm: 2.0, reliabilityPct: 85 },
+  { id: "c5", farmId: "farm-10", farmerName: "Josefina Lim", crop: "Vegetables", surplusT: 0.5, distanceKm: 2.6, reliabilityPct: 93 },
+  { id: "c6", farmId: "farm-11", farmerName: "Danilo Torres", crop: "Vegetables", surplusT: 0.4, distanceKm: 4.1, reliabilityPct: 88 },
+  { id: "c7", farmId: "farm-12", farmerName: "Wilhelmina Cruz", crop: "Rice", surplusT: 0.6, distanceKm: 7.5, reliabilityPct: 97 },
 ];

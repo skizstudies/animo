@@ -1,11 +1,27 @@
-import { PagePlaceholder } from "../components/layout/PagePlaceholder";
+import { FarmDetail } from "../components/farm-map/FarmDetail";
+import { FarmDirectory } from "../components/farm-map/FarmDirectory";
+import { GisPlaceholder } from "../components/farm-map/GisPlaceholder";
+import { FARMS } from "../data/mockFarms";
+import { AFFECTED_FARMS } from "../data/mockInsurance";
+import { FARMER_CANDIDATES } from "../data/mockRecovery";
 
-export function FarmMap() {
+interface FarmMapProps {
+  selectedFarmId: string | null;
+  onSelectFarm: (farmId: string) => void;
+}
+
+export function FarmMap({ selectedFarmId, onSelectFarm }: FarmMapProps) {
+  const selectedFarm = FARMS.find((f) => f.id === selectedFarmId) ?? null;
+  const insuranceRecord = AFFECTED_FARMS.find((f) => f.farmId === selectedFarmId);
+  const recoveryRecord = FARMER_CANDIDATES.find((f) => f.farmId === selectedFarmId);
+
   return (
-    <PagePlaceholder
-      eyebrow="Phase 4"
-      title="Farm Map — GIS placeholder"
-      description="The map graphic itself is stubbed for the separate GIS workstream — this page will carry a real farm list wired to Insurance and Recovery instead."
-    />
+    <div className="flex min-h-0 flex-1 flex-col gap-4">
+      <div className="flex min-h-0 flex-1 gap-4">
+        <GisPlaceholder selectedFarm={selectedFarm} />
+        <FarmDirectory farms={FARMS} selectedId={selectedFarmId} onSelect={onSelectFarm} />
+      </div>
+      <FarmDetail farm={selectedFarm} insuranceRecord={insuranceRecord} recoveryRecord={recoveryRecord} />
+    </div>
   );
 }

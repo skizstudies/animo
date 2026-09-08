@@ -13,9 +13,9 @@ export const ACTIVE_HAZARD: HazardEvent = {
 };
 
 export const AFFECTED_FARMS: AffectedFarm[] = [
-  { id: "f1", farmerName: "Mang Tomas Reyes", crop: "Rice", areaHa: 2.4, estimatedLossPct: 62 },
-  { id: "f2", farmerName: "Aling Puring Santos", crop: "Rice", areaHa: 1.8, estimatedLossPct: 45 },
-  { id: "f3", farmerName: "Ernesto Villar", crop: "Corn", areaHa: 3.1, estimatedLossPct: 38 },
-  { id: "f4", farmerName: "Ligaya Cruz", crop: "Rice", areaHa: 1.2, estimatedLossPct: 71 },
-  { id: "f5", farmerName: "Rodel Manalo", crop: "Vegetables", areaHa: 0.9, estimatedLossPct: 25 },
+  { id: "f1", farmId: "farm-1", farmerName: "Mang Tomas Reyes", crop: "Rice", areaHa: 2.4, estimatedLossPct: 62 },
+  { id: "f2", farmId: "farm-2", farmerName: "Aling Puring Santos", crop: "Rice", areaHa: 1.8, estimatedLossPct: 45 },
+  { id: "f3", farmId: "farm-3", farmerName: "Ernesto Villar", crop: "Corn", areaHa: 3.1, estimatedLossPct: 38 },
+  { id: "f4", farmId: "farm-4", farmerName: "Ligaya Cruz", crop: "Rice", areaHa: 1.2, estimatedLossPct: 71 },
+  { id: "f5", farmId: "farm-5", farmerName: "Rodel Manalo", crop: "Vegetables", areaHa: 0.9, estimatedLossPct: 25 },
 ];

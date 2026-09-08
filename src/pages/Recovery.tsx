@@ -7,7 +7,11 @@ import { rankMatches } from "../lib/scoreMatch";
 
 type Step = "gaps" | "matches";
 
-export function Recovery() {
+interface RecoveryProps {
+  onViewFarm: (farmId: string) => void;
+}
+
+export function Recovery({ onViewFarm }: RecoveryProps) {
   const [step, setStep] = useState<Step>("gaps");
   const [selectedGapId, setSelectedGapId] = useState<string | null>(null);
   const [approvals, setApprovals] = useState<Record<string, string>>({});
@@ -48,6 +52,7 @@ export function Recovery() {
                   approved={approvals[selectedGap.id] === match.farmer.id}
                   disabled={Boolean(approvals[selectedGap.id]) && approvals[selectedGap.id] !== match.farmer.id}
                   onApprove={() => approve(match.farmer.id)}
+                  onViewFarm={() => onViewFarm(match.farmer.farmId)}
                 />
               ))}
             </div>

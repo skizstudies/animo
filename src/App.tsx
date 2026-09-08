@@ -10,7 +10,13 @@ import type { PageId } from "./types";
 
 export default function App() {
   const [activePage, setActivePage] = useState<PageId>("overview");
+  const [selectedFarmId, setSelectedFarmId] = useState<string | null>(null);
   const { theme, toggle } = useTheme();
+
+  function viewFarm(farmId: string) {
+    setSelectedFarmId(farmId);
+    setActivePage("farm-map");
+  }
 
   return (
     <div className="flex h-screen gap-5 p-5">
@@ -19,9 +25,9 @@ export default function App() {
         <Topbar activePage={activePage} theme={theme} onToggleTheme={toggle} />
         <div className="flex min-h-0 flex-1 flex-col">
           {activePage === "overview" && <Overview onNavigate={setActivePage} />}
-          {activePage === "insurance" && <Insurance />}
-          {activePage === "recovery" && <Recovery />}
-          {activePage === "farm-map" && <FarmMap />}
+          {activePage === "insurance" && <Insurance onViewFarm={viewFarm} />}
+          {activePage === "recovery" && <Recovery onViewFarm={viewFarm} />}
+          {activePage === "farm-map" && <FarmMap selectedFarmId={selectedFarmId} onSelectFarm={setSelectedFarmId} />}
         </div>
       </main>
     </div>
