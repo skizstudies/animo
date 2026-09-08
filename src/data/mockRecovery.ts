@@ -1,7 +1,11 @@
 import type { DamageReportSection } from "../types";
-import { ACTIVE_HAZARD } from "./mockInsurance";
+import { ACTIVE_HAZARD, AFFECTED_FARMS } from "./mockInsurance";
 
 export const DAMAGE_REPORT_RECIPIENT = "Municipal Disaster Risk Reduction Office — Batangas";
+
+/** Same cluster, same farms as Insurance's evidence pull — one hazard trigger
+ * feeding two coordinated agent workflows. */
+export const DAMAGE_REPORT_FARM_IDS: string[] = AFFECTED_FARMS.map((f) => f.farmId);
 
 /** The agent drafts what it can determine from shared cluster/hazard data.
  * What's left needs a short answer from the cooperative officer, not a form. */

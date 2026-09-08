@@ -1,8 +1,8 @@
 import { MoonIcon, SunIcon } from "../components/layout/icons";
 import { usePhtClock } from "../hooks/usePhtClock";
 import { useTheme } from "../hooks/useTheme";
-import { AssistanceList } from "./components/AssistanceList";
 import { GisOverviewPlaceholder } from "./components/GisOverviewPlaceholder";
+import { ReceivedReport } from "./components/ReceivedReport";
 import { WeatherPanel } from "./components/WeatherPanel";
 
 export function LguApp() {
@@ -51,7 +51,7 @@ export function LguApp() {
       </div>
 
       <div className="flex min-h-[280px] shrink-0 flex-col">
-        <AssistanceList />
+        <ReceivedReport />
       </div>
     </div>
   );

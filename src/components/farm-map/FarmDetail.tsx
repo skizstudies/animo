@@ -3,9 +3,10 @@ import type { AffectedFarm, Farm } from "../../types";
 interface FarmDetailProps {
   farm: Farm | null;
   insuranceRecord?: AffectedFarm;
+  inRecoveryReport?: boolean;
 }
 
-export function FarmDetail({ farm, insuranceRecord }: FarmDetailProps) {
+export function FarmDetail({ farm, insuranceRecord, inRecoveryReport }: FarmDetailProps) {
   if (!farm) {
     return (
       <div className="flex shrink-0 items-center justify-center rounded-[6px] border border-border bg-card px-5 py-5 text-[12.5px] text-ink-soft shadow-[var(--shadow-sm)]">
@@ -37,8 +38,13 @@ export function FarmDetail({ farm, insuranceRecord }: FarmDetailProps) {
           Insurance: {insuranceRecord.estimatedLossPct}% est. loss
         </span>
       )}
-      {!insuranceRecord && (
-        <span className="font-mono text-[11px] text-ink-soft">No open Insurance activity.</span>
+      {inRecoveryReport && (
+        <span className="rounded-[20px] bg-success/12 px-3 py-1.5 font-mono text-[11px] font-bold text-text-success">
+          Recovery: included in the Road to Recovery report
+        </span>
+      )}
+      {!insuranceRecord && !inRecoveryReport && (
+        <span className="font-mono text-[11px] text-ink-soft">No open Insurance or Recovery activity.</span>
       )}
     </div>
   );
