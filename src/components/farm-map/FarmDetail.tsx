@@ -1,16 +1,15 @@
-import type { AffectedFarm, Farm, FarmerCandidate } from "../../types";
+import type { AffectedFarm, Farm } from "../../types";
 
 interface FarmDetailProps {
   farm: Farm | null;
   insuranceRecord?: AffectedFarm;
-  recoveryRecord?: FarmerCandidate;
 }
 
-export function FarmDetail({ farm, insuranceRecord, recoveryRecord }: FarmDetailProps) {
+export function FarmDetail({ farm, insuranceRecord }: FarmDetailProps) {
   if (!farm) {
     return (
       <div className="flex shrink-0 items-center justify-center rounded-[6px] border border-border bg-card px-5 py-5 text-[12.5px] text-ink-soft shadow-[var(--shadow-sm)]">
-        Select a farm from the directory, or click through from Insurance or Recovery.
+        Select a farm from the directory, or click through from Insurance.
       </div>
     );
   }
@@ -38,13 +37,8 @@ export function FarmDetail({ farm, insuranceRecord, recoveryRecord }: FarmDetail
           Insurance: {insuranceRecord.estimatedLossPct}% est. loss
         </span>
       )}
-      {recoveryRecord && (
-        <span className="rounded-[20px] bg-success/12 px-3 py-1.5 font-mono text-[11px] font-bold text-text-success">
-          Recovery: {recoveryRecord.surplusT.toFixed(1)}t surplus available
-        </span>
-      )}
-      {!insuranceRecord && !recoveryRecord && (
-        <span className="font-mono text-[11px] text-ink-soft">No open Insurance or Recovery activity.</span>
+      {!insuranceRecord && (
+        <span className="font-mono text-[11px] text-ink-soft">No open Insurance activity.</span>
       )}
     </div>
   );

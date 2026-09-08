@@ -26,7 +26,7 @@ export default function App() {
         <div className="flex min-h-0 flex-1 flex-col">
           {activePage === "overview" && <Overview onNavigate={setActivePage} />}
           {activePage === "insurance" && <Insurance onViewFarm={viewFarm} />}
-          {activePage === "recovery" && <Recovery onViewFarm={viewFarm} />}
+          {activePage === "recovery" && <Recovery />}
           {activePage === "farm-map" && <FarmMap selectedFarmId={selectedFarmId} onSelectFarm={setSelectedFarmId} />}
         </div>
       </main>

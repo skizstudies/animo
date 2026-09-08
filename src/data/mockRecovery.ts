@@ -1,34 +1,40 @@
-import type { BuyerGap, FarmerCandidate } from "../types";
+import type { DamageReportSection } from "../types";
+import { ACTIVE_HAZARD } from "./mockInsurance";
 
-export const BUYER_GAPS: BuyerGap[] = [
+export const DAMAGE_REPORT_RECIPIENT = "Municipal Disaster Risk Reduction Office — Batangas";
+
+/** The agent drafts what it can determine from shared cluster/hazard data.
+ * What's left needs a short answer from the cooperative officer, not a form. */
+export const DAMAGE_REPORT_SECTIONS: DamageReportSection[] = [
   {
-    id: "g1",
-    buyerName: "Jollibee Foods Corp.",
-    crop: "Rice",
-    orderedQtyT: 5.0,
-    deliverableQtyT: 1.8,
-    contractedFarmerName: "Mang Tomas Reyes",
-    flaggedAgo: "2 hours ago",
-    urgency: "high",
+    id: "s1",
+    title: "Affected Area Summary",
+    status: "ai-filled",
+    content: `Cluster ${ACTIVE_HAZARD.clusterId} (${ACTIVE_HAZARD.clusterName}) sustained crop damage from ${ACTIVE_HAZARD.name} (Signal No. ${ACTIVE_HAZARD.signal}), confirmed via Sentinel-2 passes on ${ACTIVE_HAZARD.preImageDate} and ${ACTIVE_HAZARD.postImageDate}. 5 farms across Rice, Corn, and Vegetables are affected.`,
   },
   {
-    id: "g2",
-    buyerName: "SM Supermarts",
-    crop: "Vegetables",
-    orderedQtyT: 1.2,
-    deliverableQtyT: 0.9,
-    contractedFarmerName: "Rodel Manalo",
-    flaggedAgo: "Yesterday",
-    urgency: "medium",
+    id: "s2",
+    title: "Estimated Agricultural Loss",
+    status: "ai-filled",
+    content:
+      "Combined average estimated crop loss across affected farms is 48%, covering 9.4 hectares — see the attached PCIC evidence package for the per-farm breakdown.",
   },
-];
-
-export const FARMER_CANDIDATES: FarmerCandidate[] = [
-  { id: "c1", farmId: "farm-6", farmerName: "Bayani Ocampo", crop: "Rice", surplusT: 1.6, distanceKm: 3.2, reliabilityPct: 96 },
-  { id: "c2", farmId: "farm-7", farmerName: "Corazon Dizon", crop: "Rice", surplusT: 2.1, distanceKm: 5.8, reliabilityPct: 89 },
-  { id: "c3", farmId: "farm-8", farmerName: "Felipe Ramos", crop: "Rice", surplusT: 1.1, distanceKm: 1.4, reliabilityPct: 91 },
-  { id: "c4", farmId: "farm-9", farmerName: "Marites Aquino", crop: "Corn", surplusT: 3.0, distanceKm: 2.0, reliabilityPct: 85 },
-  { id: "c5", farmId: "farm-10", farmerName: "Josefina Lim", crop: "Vegetables", surplusT: 0.5, distanceKm: 2.6, reliabilityPct: 93 },
-  { id: "c6", farmId: "farm-11", farmerName: "Danilo Torres", crop: "Vegetables", surplusT: 0.4, distanceKm: 4.1, reliabilityPct: 88 },
-  { id: "c7", farmId: "farm-12", farmerName: "Wilhelmina Cruz", crop: "Rice", surplusT: 0.6, distanceKm: 7.5, reliabilityPct: 97 },
+  {
+    id: "s3",
+    title: "Displaced Families",
+    status: "needs-input",
+    prompt: "How many families have been temporarily displaced or relocated?",
+  },
+  {
+    id: "s4",
+    title: "Local Trade & Market Impact",
+    status: "needs-input",
+    prompt: "Any immediate impact on the local palengke or trading post you're aware of?",
+  },
+  {
+    id: "s5",
+    title: "Immediate Assistance Needed",
+    status: "needs-input",
+    prompt: "What's the most urgent relief need right now — food, water, shelter, or something else?",
+  },
 ];

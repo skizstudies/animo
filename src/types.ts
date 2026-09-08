@@ -36,29 +36,28 @@ export interface Farm {
   status: "active" | "inactive";
 }
 
-export interface BuyerGap {
+export type PipelineStage = "messaged" | "replied" | "consent" | "evidence" | "sent";
+
+export interface ConversationMessage {
   id: string;
-  buyerName: string;
-  crop: string;
-  orderedQtyT: number;
-  deliverableQtyT: number;
-  contractedFarmerName: string;
-  flaggedAgo: string;
-  urgency: "high" | "medium";
+  from: "agent" | "farmer";
+  text: string;
+  timeLabel: string;
 }
 
-export interface FarmerCandidate {
+export interface InsuranceCase {
   id: string;
   farmId: string;
   farmerName: string;
-  crop: string;
-  surplusT: number;
-  distanceKm: number;
-  reliabilityPct: number;
+  stage: PipelineStage;
+  consented: boolean;
+  messages: ConversationMessage[];
 }
 
-export interface ScoredMatch {
-  farmer: FarmerCandidate;
-  score: number;
-  reasons: string[];
+export interface DamageReportSection {
+  id: string;
+  title: string;
+  status: "ai-filled" | "needs-input";
+  content?: string;
+  prompt?: string;
 }
