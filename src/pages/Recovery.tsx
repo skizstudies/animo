@@ -28,7 +28,7 @@ export function Recovery() {
   const [processingId, setProcessingId] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
   const [submittedAt, setSubmittedAt] = useState<Date | null>(null);
-  const referenceNo = useMemo(makeReferenceNo, []);
+  const referenceNo = useMemo(() => makeReferenceNo(), []);
 
   const gapSections = DAMAGE_REPORT_SECTIONS.filter((s) => s.status === "needs-input");
   const resolvedCount = gapSections.filter((s) => composed[s.id]).length;
