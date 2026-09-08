@@ -1,3 +1,4 @@
+import { STAGE_LABEL, STAGE_ORDER } from "../../data/pipelineStages";
 import type { AffectedFarm, InsuranceCase, PipelineStage } from "../../types";
 import { DocumentIcon, MapPinIcon } from "../layout/icons";
 
@@ -9,16 +10,6 @@ interface CasePipelineListProps {
   onReviewCase: (caseId: string) => void;
   onViewFarm: (farmId: string) => void;
 }
-
-const STAGE_ORDER: PipelineStage[] = ["messaged", "replied", "consent", "compiled", "sent"];
-
-const STAGE_LABEL: Record<PipelineStage, string> = {
-  messaged: "Awaiting reply",
-  replied: "Awaiting consent",
-  consent: "Gathering evidence",
-  compiled: "Ready for review",
-  sent: "Sent to PCIC",
-};
 
 function StageProgress({ stage }: { stage: PipelineStage }) {
   const filled = STAGE_ORDER.indexOf(stage) + 1;
@@ -56,6 +47,7 @@ export function CasePipelineList({
           const active = c.id === selectedCaseId;
           const needsReview = c.stage === "compiled";
           const sent = c.stage === "sent";
+          const lastLog = c.log[c.log.length - 1];
           return (
             <div
               key={c.id}
@@ -78,7 +70,10 @@ export function CasePipelineList({
                 </div>
                 {!needsReview && (
                   <div className="flex shrink-0 flex-col items-end gap-1">
-                    <span className="font-mono text-[10.5px] font-bold text-ink-soft">{STAGE_LABEL[c.stage]}</span>
+                    <span className="font-mono text-[10.5px] font-bold text-ink-soft">
+                      {STAGE_LABEL[c.stage]}
+                      {lastLog && <span className="font-normal text-ink-soft/70"> · {lastLog.timeLabel}</span>}
+                    </span>
                     <StageProgress stage={c.stage} />
                   </div>
                 )}

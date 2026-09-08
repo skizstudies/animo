@@ -2,6 +2,7 @@ import { useState } from "react";
 import { FARMS } from "../../data/mockFarms";
 import type { AffectedFarm, HazardEvent, InsuranceCase } from "../../types";
 import { CheckCircleIcon, DocumentIcon, SendIcon } from "../layout/icons";
+import { ProcessingLog } from "./ProcessingLog";
 
 interface DocumentReviewPanelProps {
   insuranceCase: InsuranceCase;
@@ -21,6 +22,7 @@ export function DocumentReviewPanel({ insuranceCase, farm, hazard, onBack, onApp
   const [verified, setVerified] = useState(false);
   const barangay = FARMS.find((f) => f.id === farm.farmId)?.barangay;
   const sent = insuranceCase.stage === "sent";
+  const sentLog = insuranceCase.log.find((l) => l.stage === "sent");
 
   const narrative = `${insuranceCase.farmerName}'s ${farm.crop.toLowerCase()} farm (${farm.areaHa.toFixed(1)} ha${barangay ? `, Brgy. ${barangay}` : ""}) shows an estimated ${farm.estimatedLossPct}% loss from ${hazard.name}, confirmed via Sentinel-2 passes on ${hazard.preImageDate} and ${hazard.postImageDate}.`;
 
@@ -58,6 +60,10 @@ export function DocumentReviewPanel({ insuranceCase, farm, hazard, onBack, onApp
         </ul>
       </div>
 
+      <div className="mb-4 shrink-0">
+        <ProcessingLog log={insuranceCase.log} />
+      </div>
+
       <div className="mt-auto shrink-0">
         {sent ? (
           <div className="flex items-center gap-3 rounded-[6px] border border-success/30 bg-success/8 px-4 py-3">
@@ -66,7 +72,10 @@ export function DocumentReviewPanel({ insuranceCase, farm, hazard, onBack, onApp
             </span>
             <div>
               <div className="text-[13px] font-extrabold text-ink">Approved &amp; submitted</div>
-              <div className="font-mono text-[11px] text-ink-soft">Ref. {insuranceCase.referenceNo}</div>
+              <div className="font-mono text-[11px] text-ink-soft">
+                Ref. {insuranceCase.referenceNo}
+                {sentLog && ` · ${sentLog.dateLabel} · ${sentLog.timeLabel}`}
+              </div>
             </div>
           </div>
         ) : (

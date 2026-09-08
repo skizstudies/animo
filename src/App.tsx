@@ -23,7 +23,7 @@ export default function App() {
       <Sidebar activePage={activePage} onNavigate={setActivePage} />
       <main className="flex min-w-0 flex-1 flex-col overflow-hidden">
         <Topbar activePage={activePage} theme={theme} onToggleTheme={toggle} />
-        <div className="flex min-h-0 flex-1 flex-col">
+        <div key={activePage} className="page-transition flex min-h-0 flex-1 flex-col">
           {activePage === "overview" && <Overview onNavigate={setActivePage} />}
           {activePage === "insurance" && <Insurance onViewFarm={viewFarm} />}
           {activePage === "recovery" && <Recovery />}

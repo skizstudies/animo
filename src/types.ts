@@ -45,6 +45,12 @@ export interface ConversationMessage {
   timeLabel: string;
 }
 
+export interface StageLogEntry {
+  stage: PipelineStage;
+  dateLabel: string;
+  timeLabel: string;
+}
+
 export interface InsuranceCase {
   id: string;
   farmId: string;
@@ -52,6 +58,9 @@ export interface InsuranceCase {
   stage: PipelineStage;
   consented: boolean;
   messages: ConversationMessage[];
+  /** One entry per stage reached so far, in order — the audit trail of when
+   * each phase actually happened, not just what the current stage is. */
+  log: StageLogEntry[];
   /** Set once the package is sent — either seeded already-sent, or filled in
    * client-side the moment an officer approves a compiled case. */
   referenceNo?: string;

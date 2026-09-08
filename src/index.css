@@ -140,3 +140,24 @@ body[data-theme="dark"]::after {
   border-bottom: 2px solid var(--color-success);
   border-right: 2px solid var(--color-success);
 }
+
+/* Page-switch transition — the content outlet is remounted (React key=
+   activePage) on every nav change, so this replays each time. */
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.page-transition {
+  animation: page-enter 220ms ease-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  .page-transition {
+    animation: none;
+  }
+}

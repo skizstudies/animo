@@ -1,5 +1,6 @@
 import type { InsuranceCase } from "../../types";
 import { CheckCircleIcon } from "../layout/icons";
+import { ProcessingLog } from "./ProcessingLog";
 
 interface ConversationThreadProps {
   insuranceCase: InsuranceCase;
@@ -47,6 +48,10 @@ export function ConversationThread({ insuranceCase, onBack }: ConversationThread
           <span className="text-[12px] font-bold text-text-success">Farmer consented — agent proceeding on their behalf</span>
         </div>
       )}
+
+      <div className="mt-3 shrink-0">
+        <ProcessingLog log={insuranceCase.log} />
+      </div>
     </div>
   );
 }

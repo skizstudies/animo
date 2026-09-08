@@ -10,6 +10,7 @@ const timeFmt = new Intl.DateTimeFormat("en-PH", {
   timeZone: "Asia/Manila",
   hour: "2-digit",
   minute: "2-digit",
+  second: "2-digit",
   hour12: false,
 });
 
@@ -19,13 +20,13 @@ function greetingFor(hour: number) {
   return "Good evening";
 }
 
-/** Live PHT clock + greeting, refreshed every 60s. Recompute on mount so it's
- * accurate whenever the caller (Overview) comes back into view. */
+/** Live PHT clock + greeting, ticking every second so the seconds digits are
+ * actually live, not just displayed. */
 export function usePhtClock() {
   const [now, setNow] = useState(() => new Date());
 
   useEffect(() => {
-    const id = setInterval(() => setNow(new Date()), 60_000);
+    const id = setInterval(() => setNow(new Date()), 1_000);
     return () => clearInterval(id);
   }, []);
 

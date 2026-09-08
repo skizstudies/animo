@@ -21,8 +21,8 @@ const MOCK_NOTIFICATIONS: Notification[] = [
   },
   {
     id: "n2",
-    title: "Buyer shortfall flagged",
-    body: "Jollibee Foods Corp. order exceeds Mang Tomas's deliverable volume.",
+    title: "Documents ready for review",
+    body: "Mang Tomas Reyes's PCIC package is compiled and awaiting your approval.",
     time: "1 hr ago",
     unread: true,
   },
@@ -38,7 +38,7 @@ const MOCK_NOTIFICATIONS: Notification[] = [
 const PAGE_TITLES: Record<PageId, string> = {
   overview: "Overview",
   insurance: "Insurance",
-  recovery: "Recovery",
+  recovery: "Reports",
   "farm-map": "Farm Map",
 };
 

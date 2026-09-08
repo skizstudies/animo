@@ -36,6 +36,12 @@ export const INSURANCE_CASES: InsuranceCase[] = [
       { id: "m4", from: "farmer", text: "Opo, sige po.", timeLabel: "10:31 AM" },
       { id: "m5", from: "agent", text: "Salamat po! Nakumpleto na po namin ang mga dokumento at satellite evidence ng bukid niyo. Puwede na po kayong pumunta sa amin para i-verify bago namin ipadala sa PCIC.", timeLabel: "11:02 AM" },
     ],
+    log: [
+      { stage: "messaged", dateLabel: "Sep 06, 2026", timeLabel: "10:14 AM" },
+      { stage: "replied", dateLabel: "Sep 06, 2026", timeLabel: "10:22 AM" },
+      { stage: "consent", dateLabel: "Sep 06, 2026", timeLabel: "10:23 AM" },
+      { stage: "compiled", dateLabel: "Sep 06, 2026", timeLabel: "11:02 AM" },
+    ],
   },
   {
     id: "case-2",
@@ -51,6 +57,13 @@ export const INSURANCE_CASES: InsuranceCase[] = [
       { id: "m4", from: "farmer", text: "Opo, kailangan na namin agad.", timeLabel: "09:58 AM" },
       { id: "m5", from: "agent", text: "Naipadala na po ang inyong claim sa PCIC kasama ang satellite evidence. Aabisuhan namin kayo pag may update.", timeLabel: "10:20 AM" },
     ],
+    log: [
+      { stage: "messaged", dateLabel: "Sep 06, 2026", timeLabel: "09:40 AM" },
+      { stage: "replied", dateLabel: "Sep 06, 2026", timeLabel: "09:52 AM" },
+      { stage: "consent", dateLabel: "Sep 06, 2026", timeLabel: "09:53 AM" },
+      { stage: "compiled", dateLabel: "Sep 06, 2026", timeLabel: "10:15 AM" },
+      { stage: "sent", dateLabel: "Sep 06, 2026", timeLabel: "10:20 AM" },
+    ],
   },
   {
     id: "case-3",
@@ -64,6 +77,11 @@ export const INSURANCE_CASES: InsuranceCase[] = [
       { id: "m3", from: "agent", text: "Salamat sa update. Gusto niyo po ba na i-file namin ang insurance claim niyo?", timeLabel: "10:19 AM" },
       { id: "m4", from: "farmer", text: "Opo, pwede po.", timeLabel: "10:27 AM" },
     ],
+    log: [
+      { stage: "messaged", dateLabel: "Sep 06, 2026", timeLabel: "10:05 AM" },
+      { stage: "replied", dateLabel: "Sep 06, 2026", timeLabel: "10:18 AM" },
+      { stage: "consent", dateLabel: "Sep 06, 2026", timeLabel: "10:27 AM" },
+    ],
   },
   {
     id: "case-4",
@@ -75,6 +93,10 @@ export const INSURANCE_CASES: InsuranceCase[] = [
       { id: "m1", from: "agent", text: "Kumusta po kayo, Mang Ernesto? Kumusta ang mais niyo matapos ang bagyo?", timeLabel: "10:10 AM" },
       { id: "m2", from: "farmer", text: "Nasira po yung ilang bahagi, pero okay pa yung iba.", timeLabel: "10:34 AM" },
     ],
+    log: [
+      { stage: "messaged", dateLabel: "Sep 06, 2026", timeLabel: "10:10 AM" },
+      { stage: "replied", dateLabel: "Sep 06, 2026", timeLabel: "10:34 AM" },
+    ],
   },
   {
     id: "case-5",
@@ -85,5 +107,6 @@ export const INSURANCE_CASES: InsuranceCase[] = [
     messages: [
       { id: "m1", from: "agent", text: "Kumusta po kayo, Mang Rodel? Naapektuhan po ba ang gulay niyo ng bagyo?", timeLabel: "10:16 AM" },
     ],
+    log: [{ stage: "messaged", dateLabel: "Sep 06, 2026", timeLabel: "10:16 AM" }],
   },
 ];

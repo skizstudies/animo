@@ -5,7 +5,7 @@ import { DocumentReviewPanel } from "../components/insurance/DocumentReviewPanel
 import { HazardBanner } from "../components/insurance/HazardBanner";
 import { SatelliteCompare } from "../components/insurance/SatelliteCompare";
 import { ACTIVE_HAZARD, AFFECTED_FARMS, INSURANCE_CASES } from "../data/mockInsurance";
-import type { PipelineStage } from "../types";
+import type { PipelineStage, StageLogEntry } from "../types";
 
 const STAGE_SUMMARY_LABEL: Record<PipelineStage, string> = {
   messaged: "awaiting reply",
@@ -15,9 +15,17 @@ const STAGE_SUMMARY_LABEL: Record<PipelineStage, string> = {
   sent: "sent to PCIC",
 };
 
+const dateFmt = new Intl.DateTimeFormat("en-PH", { timeZone: "Asia/Manila", month: "short", day: "2-digit", year: "numeric" });
+const timeFmt = new Intl.DateTimeFormat("en-PH", { timeZone: "Asia/Manila", hour: "2-digit", minute: "2-digit", hour12: true });
+
 function makeReferenceNo() {
   const n = Math.floor(100000 + Math.random() * 900000);
   return `PCIC-${new Date().getFullYear()}-${n}`;
+}
+
+interface Approval {
+  referenceNo: string;
+  logEntry: StageLogEntry;
 }
 
 interface InsuranceProps {
@@ -27,11 +35,13 @@ interface InsuranceProps {
 export function Insurance({ onViewFarm }: InsuranceProps) {
   const [selectedCaseId, setSelectedCaseId] = useState<string | null>(null);
   const [reviewCaseId, setReviewCaseId] = useState<string | null>(null);
-  const [approvals, setApprovals] = useState<Record<string, string>>({});
+  const [approvals, setApprovals] = useState<Record<string, Approval>>({});
 
-  const cases = INSURANCE_CASES.map((c) =>
-    approvals[c.id] ? { ...c, stage: "sent" as const, referenceNo: approvals[c.id] } : c,
-  );
+  const cases = INSURANCE_CASES.map((c) => {
+    const approval = approvals[c.id];
+    if (!approval) return c;
+    return { ...c, stage: "sent" as const, referenceNo: approval.referenceNo, log: [...c.log, approval.logEntry] };
+  });
 
   const selectedCase = cases.find((c) => c.id === selectedCaseId) ?? null;
   const reviewCase = cases.find((c) => c.id === reviewCaseId) ?? null;
@@ -53,7 +63,14 @@ export function Insurance({ onViewFarm }: InsuranceProps) {
   }
 
   function handleApprove(caseId: string) {
-    setApprovals((prev) => ({ ...prev, [caseId]: makeReferenceNo() }));
+    const now = new Date();
+    setApprovals((prev) => ({
+      ...prev,
+      [caseId]: {
+        referenceNo: makeReferenceNo(),
+        logEntry: { stage: "sent", dateLabel: dateFmt.format(now), timeLabel: timeFmt.format(now) },
+      },
+    }));
   }
 
   const pendingReview = cases.filter((c) => c.stage === "compiled").length;

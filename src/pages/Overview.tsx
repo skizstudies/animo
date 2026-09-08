@@ -19,9 +19,9 @@ export function Overview({ onNavigate }: OverviewProps) {
       />
       <LauncherTile
         icon={RecoveryIcon}
-        label="Recovery"
-        description="AI-matched farmers to cover a buyer's shortfall, ranked and ready to approve."
-        cta="Open Recovery"
+        label="Reports"
+        description="AI-drafted damage assessment for the LGU, filling gaps with your input."
+        cta="Open Reports"
         accent="success"
         onOpen={() => onNavigate("recovery")}
       />
