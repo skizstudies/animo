@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { usePhtClock } from "../../hooks/usePhtClock";
 import type { PageId } from "../../types";
 import { BellIcon, MoonIcon, SunIcon } from "./icons";
@@ -52,8 +52,25 @@ export function Topbar({ activePage, theme, onToggleTheme }: TopbarProps) {
   const { date, time, greeting } = usePhtClock();
   const [notifOpen, setNotifOpen] = useState(false);
   const [unreadCount, setUnreadCount] = useState(MOCK_NOTIFICATIONS.filter((n) => n.unread).length);
+  const notifRef = useRef<HTMLDivElement>(null);
 
   const isOverview = activePage === "overview";
+
+  useEffect(() => {
+    if (!notifOpen) return;
+    function handlePointerDown(e: PointerEvent) {
+      if (notifRef.current && !notifRef.current.contains(e.target as Node)) setNotifOpen(false);
+    }
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") setNotifOpen(false);
+    }
+    document.addEventListener("pointerdown", handlePointerDown);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("pointerdown", handlePointerDown);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [notifOpen]);
 
   return (
     <div className="mb-[18px] flex shrink-0 items-center gap-7">
@@ -75,7 +92,7 @@ export function Topbar({ activePage, theme, onToggleTheme }: TopbarProps) {
       <div className="flex-1" />
 
       <div className="flex shrink-0 items-center gap-2.5">
-        <div className="relative">
+        <div className="relative" ref={notifRef}>
           <button
             type="button"
             onClick={() => {
@@ -92,7 +109,7 @@ export function Topbar({ activePage, theme, onToggleTheme }: TopbarProps) {
             )}
           </button>
           {notifOpen && (
-            <div className="panel-corners absolute top-[50px] right-0 z-20 flex w-[300px] flex-col gap-1 rounded-[6px] border border-border bg-card p-2 text-left shadow-[var(--shadow)]">
+            <div className="absolute top-[50px] right-0 z-20 flex w-[300px] flex-col gap-1 rounded-[6px] border border-border bg-card p-2 text-left shadow-[var(--shadow)]">
               <div className="px-2.5 pt-2 pb-2.5 text-[12px] font-extrabold text-ink">Notifications</div>
               {MOCK_NOTIFICATIONS.map((n) => (
                 <div key={n.id} className="flex gap-2.5 rounded-[11px] p-2.5 hover:bg-hover">
