@@ -1,7 +1,9 @@
+import { useState } from "react";
 import type { ComponentType, SVGProps } from "react";
 import { NAV_ITEMS } from "../../data/nav";
 import type { PageId } from "../../types";
 import { ChevronRightIcon, FarmMapIcon, InsuranceIcon, OverviewIcon, RecoveryIcon } from "./icons";
+import { ProfileModal } from "./ProfileModal";
 
 const ICONS: Record<PageId, ComponentType<SVGProps<SVGSVGElement>>> = {
   overview: OverviewIcon,
@@ -16,6 +18,8 @@ interface SidebarProps {
 }
 
 export function Sidebar({ activePage, onNavigate }: SidebarProps) {
+  const [profileOpen, setProfileOpen] = useState(false);
+
   return (
     <aside className="panel-corners panel-corners-light relative flex w-[264px] shrink-0 flex-col rounded-[6px] border border-success/20 bg-gradient-to-b from-sidebar to-sidebar-deep p-[18px] pt-[26px] text-white shadow-[var(--shadow)]">
       <div className="flex items-center gap-[11px] px-2 pb-[26px]">
@@ -56,6 +60,7 @@ export function Sidebar({ activePage, onNavigate }: SidebarProps) {
 
       <button
         type="button"
+        onClick={() => setProfileOpen(true)}
         className="flex items-center gap-2.5 rounded-[6px] bg-white/[0.07] p-3 text-left transition-colors hover:bg-white/[0.13]"
       >
         <div className="flex h-[34px] w-[34px] shrink-0 items-center justify-center rounded-[10px] bg-success text-[13px] font-bold text-sidebar-deep">
@@ -67,6 +72,8 @@ export function Sidebar({ activePage, onNavigate }: SidebarProps) {
         </div>
         <ChevronRightIcon className="ml-auto h-3.5 w-3.5 shrink-0 stroke-white/45" />
       </button>
+
+      {profileOpen && <ProfileModal onClose={() => setProfileOpen(false)} />}
     </aside>
   );
 }

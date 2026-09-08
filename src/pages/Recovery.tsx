@@ -1,8 +1,8 @@
 import { useMemo, useState } from "react";
 import { HazardBanner } from "../components/insurance/HazardBanner";
 import { CheckCircleIcon, SendIcon } from "../components/layout/icons";
-import { ReportActivityLog } from "../components/recovery/ReportActivityLog";
-import { ReportSection } from "../components/recovery/ReportSection";
+import { ReportSectionList } from "../components/recovery/ReportSectionList";
+import { ReportSectionModal } from "../components/recovery/ReportSectionModal";
 import { ACTIVE_HAZARD } from "../data/mockInsurance";
 import { DAMAGE_REPORT_RECIPIENT, DAMAGE_REPORT_SECTIONS } from "../data/mockRecovery";
 
@@ -27,33 +27,47 @@ function makeReferenceNo() {
   return `LGU-${new Date().getFullYear()}-${n}`;
 }
 
+type TimeInfo = { dateLabel: string; timeLabel: string };
+
 export function Recovery() {
   const [composed, setComposed] = useState<Record<string, string>>({});
-  const [completedAt, setCompletedAt] = useState<Record<string, { dateLabel: string; timeLabel: string }>>({});
+  const [edited, setEdited] = useState<Record<string, string>>({});
+  const [touchedAt, setTouchedAt] = useState<Record<string, TimeInfo>>({});
   const [processingId, setProcessingId] = useState<string | null>(null);
+  const [openSectionId, setOpenSectionId] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
   const [submittedAt, setSubmittedAt] = useState<Date | null>(null);
   const referenceNo = useMemo(() => makeReferenceNo(), []);
 
   const gapSections = DAMAGE_REPORT_SECTIONS.filter((s) => s.status === "needs-input");
-  const resolvedCount = gapSections.filter((s) => composed[s.id]).length;
+  const resolvedCount = gapSections.filter((s) => composed[s.id] || edited[s.id]).length;
   const allResolved = resolvedCount === gapSections.length;
 
-  const timeInfo: Record<string, { dateLabel: string; timeLabel: string }> = { ...completedAt };
+  const viewState: Record<string, { content?: string; timeInfo?: TimeInfo; edited: boolean }> = {};
   for (const section of DAMAGE_REPORT_SECTIONS) {
-    if (section.status === "ai-filled" && section.dateLabel && section.timeLabel) {
-      timeInfo[section.id] = { dateLabel: section.dateLabel, timeLabel: section.timeLabel };
-    }
+    const content = edited[section.id] ?? composed[section.id] ?? section.content;
+    const timeInfo =
+      touchedAt[section.id] ??
+      (section.dateLabel && section.timeLabel ? { dateLabel: section.dateLabel, timeLabel: section.timeLabel } : undefined);
+    viewState[section.id] = { content, timeInfo, edited: Boolean(edited[section.id]) };
   }
+
+  const openSection = DAMAGE_REPORT_SECTIONS.find((s) => s.id === openSectionId) ?? null;
 
   function handleAnswer(sectionId: string, value: string) {
     setProcessingId(sectionId);
     window.setTimeout(() => {
       const now = new Date();
       setComposed((c) => ({ ...c, [sectionId]: composeContent(sectionId, value) }));
-      setCompletedAt((c) => ({ ...c, [sectionId]: { dateLabel: dateFmt.format(now), timeLabel: timeFmt.format(now) } }));
+      setTouchedAt((t) => ({ ...t, [sectionId]: { dateLabel: dateFmt.format(now), timeLabel: timeFmt.format(now) } }));
       setProcessingId(null);
     }, 800);
+  }
+
+  function handleSaveEdit(sectionId: string, value: string) {
+    const now = new Date();
+    setEdited((e) => ({ ...e, [sectionId]: value }));
+    setTouchedAt((t) => ({ ...t, [sectionId]: { dateLabel: dateFmt.format(now), timeLabel: timeFmt.format(now) } }));
   }
 
   function handleSubmit() {
@@ -87,24 +101,13 @@ export function Recovery() {
             <h3 className="mt-0.5 text-[15px] font-extrabold text-ink">
               Damage Assessment Report — {ACTIVE_HAZARD.clusterId}
             </h3>
+            <p className="mt-1 text-[12.5px] text-ink-soft">
+              Tap a section to read it in full, or answer what the agent couldn't determine on its own.
+            </p>
           </div>
         )}
 
-        <div className="flex flex-col gap-3 overflow-y-auto">
-          {DAMAGE_REPORT_SECTIONS.map((section) => (
-            <ReportSection
-              key={section.id}
-              section={section}
-              answeredContent={composed[section.id]}
-              timeInfo={timeInfo[section.id]}
-              processing={processingId === section.id}
-              locked={submitted}
-              onAnswer={handleAnswer}
-            />
-          ))}
-        </div>
-
-        <ReportActivityLog sections={DAMAGE_REPORT_SECTIONS} timeInfo={timeInfo} />
+        <ReportSectionList sections={DAMAGE_REPORT_SECTIONS} viewState={viewState} onOpen={setOpenSectionId} />
 
         {!submitted && (
           <div className="mt-auto flex shrink-0 flex-wrap items-center justify-between gap-3 pt-1">
@@ -125,6 +128,20 @@ export function Recovery() {
           </div>
         )}
       </div>
+
+      {openSection && (
+        <ReportSectionModal
+          section={openSection}
+          content={viewState[openSection.id].content}
+          timeInfo={viewState[openSection.id].timeInfo}
+          edited={viewState[openSection.id].edited}
+          processing={processingId === openSection.id}
+          locked={submitted}
+          onAnswer={handleAnswer}
+          onSaveEdit={handleSaveEdit}
+          onClose={() => setOpenSectionId(null)}
+        />
+      )}
     </div>
   );
 }

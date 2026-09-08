@@ -45,12 +45,12 @@ export function LguApp() {
         </a>
       </header>
 
-      <div className="flex min-h-0 flex-1 gap-4">
-        <WeatherPanel />
-        <GisOverviewPlaceholder />
-      </div>
+      <div className="flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto pr-1">
+        <div className="flex min-h-[300px] shrink-0 gap-4">
+          <WeatherPanel />
+          <GisOverviewPlaceholder />
+        </div>
 
-      <div className="flex min-h-[280px] shrink-0 flex-col">
         <ReceivedReport />
       </div>
     </div>

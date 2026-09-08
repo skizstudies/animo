@@ -1,10 +1,15 @@
+import { useState } from "react";
 import { CheckCircleIcon } from "../../components/layout/icons";
 import { RECEIVED_REPORT_META, RECEIVED_REPORT_SECTIONS } from "../data/mockReceivedReport";
+import { ReceivedSectionModal } from "./ReceivedSectionModal";
 
 export function ReceivedReport() {
+  const [openId, setOpenId] = useState<string | null>(null);
+  const openSection = RECEIVED_REPORT_SECTIONS.find((s) => s.id === openId) ?? null;
+
   return (
-    <div className="panel-corners flex flex-1 flex-col rounded-[6px] border border-border bg-card p-5 shadow-[var(--shadow-sm)]">
-      <div className="mb-3 flex shrink-0 flex-wrap items-center justify-between gap-3">
+    <div className="panel-corners shrink-0 rounded-[6px] border border-border bg-card p-5 shadow-[var(--shadow-sm)]">
+      <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
         <div>
           <span className="font-mono text-[10px] font-bold tracking-[1.2px] text-ink-soft uppercase">
             Received from Road to Recovery
@@ -21,14 +26,24 @@ export function ReceivedReport() {
         </div>
       </div>
 
-      <div className="grid flex-1 grid-cols-1 gap-2 overflow-y-auto pr-1 md:grid-cols-2">
+      <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
         {RECEIVED_REPORT_SECTIONS.map((section) => (
-          <div key={section.id} className="rounded-[6px] border border-border bg-bg px-4 py-3">
-            <h4 className="text-[12.5px] font-bold text-ink">{section.title}</h4>
-            <p className="mt-1 text-[12px] leading-relaxed text-ink-soft">{section.content}</p>
-          </div>
+          <button
+            key={section.id}
+            type="button"
+            onClick={() => setOpenId(section.id)}
+            className="rounded-[6px] border border-border bg-bg px-4 py-3 text-left transition-colors hover:border-success/40 hover:bg-success/6"
+          >
+            <div className="flex items-start justify-between gap-2">
+              <h4 className="text-[12.5px] font-bold text-ink">{section.title}</h4>
+              <span className="shrink-0 font-mono text-[10px] font-bold text-text-success uppercase">Read</span>
+            </div>
+            <p className="mt-1 line-clamp-2 text-[12px] leading-relaxed text-ink-soft">{section.content}</p>
+          </button>
         ))}
       </div>
+
+      {openSection && <ReceivedSectionModal section={openSection} onClose={() => setOpenId(null)} />}
     </div>
   );
 }
