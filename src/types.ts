@@ -25,3 +25,29 @@ export interface AffectedFarm {
   areaHa: number;
   estimatedLossPct: number;
 }
+
+export interface BuyerGap {
+  id: string;
+  buyerName: string;
+  crop: string;
+  orderedQtyT: number;
+  deliverableQtyT: number;
+  contractedFarmerName: string;
+  flaggedAgo: string;
+  urgency: "high" | "medium";
+}
+
+export interface FarmerCandidate {
+  id: string;
+  farmerName: string;
+  crop: string;
+  surplusT: number;
+  distanceKm: number;
+  reliabilityPct: number;
+}
+
+export interface ScoredMatch {
+  farmer: FarmerCandidate;
+  score: number;
+  reasons: string[];
+}
