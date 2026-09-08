@@ -8,18 +8,9 @@ import { Overview } from "./pages/Overview";
 import { Recovery } from "./pages/Recovery";
 import type { PageId } from "./types";
 
-const PAGES: Record<PageId, () => React.JSX.Element> = {
-  overview: Overview,
-  insurance: Insurance,
-  recovery: Recovery,
-  "farm-map": FarmMap,
-};
-
 export default function App() {
   const [activePage, setActivePage] = useState<PageId>("overview");
   const { theme, toggle } = useTheme();
-
-  const Page = PAGES[activePage];
 
   return (
     <div className="flex h-screen gap-5 p-5">
@@ -27,7 +18,10 @@ export default function App() {
       <main className="flex min-w-0 flex-1 flex-col overflow-hidden">
         <Topbar activePage={activePage} theme={theme} onToggleTheme={toggle} />
         <div className="flex min-h-0 flex-1 flex-col">
-          <Page />
+          {activePage === "overview" && <Overview onNavigate={setActivePage} />}
+          {activePage === "insurance" && <Insurance />}
+          {activePage === "recovery" && <Recovery />}
+          {activePage === "farm-map" && <FarmMap />}
         </div>
       </main>
     </div>

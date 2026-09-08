@@ -1,11 +1,30 @@
-import { PagePlaceholder } from "../components/layout/PagePlaceholder";
+import { LauncherTile } from "../components/overview/LauncherTile";
+import { InsuranceIcon, RecoveryIcon } from "../components/layout/icons";
+import type { PageId } from "../types";
 
-export function Overview() {
+interface OverviewProps {
+  onNavigate: (page: PageId) => void;
+}
+
+export function Overview({ onNavigate }: OverviewProps) {
   return (
-    <PagePlaceholder
-      eyebrow="Phase 1"
-      title="Overview — the launcher"
-      description="Next up: two big tiles, Insurance and Recovery, each dropping straight into its AI flow."
-    />
+    <div className="flex flex-1 gap-5">
+      <LauncherTile
+        icon={InsuranceIcon}
+        label="Insurance"
+        description="Satellite evidence, gathered and drafted into a PCIC-ready report."
+        cta="Open Insurance"
+        accent="warning"
+        onOpen={() => onNavigate("insurance")}
+      />
+      <LauncherTile
+        icon={RecoveryIcon}
+        label="Recovery"
+        description="AI-matched farmers to cover a buyer's shortfall, ranked and ready to approve."
+        cta="Open Recovery"
+        accent="success"
+        onOpen={() => onNavigate("recovery")}
+      />
+    </div>
   );
 }
