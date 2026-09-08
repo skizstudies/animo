@@ -127,6 +127,33 @@ export function SendIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
+export function RainIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <Icon {...props}>
+      <path d="M20 16.2A4.5 4.5 0 0 0 17.5 8h-1.8A7 7 0 1 0 4 14.9" />
+      <line x1="8" y1="19" x2="8" y2="21" />
+      <line x1="12" y1="19" x2="12" y2="22" />
+      <line x1="16" y1="19" x2="16" y2="21" />
+    </Icon>
+  );
+}
+
+export function ThermometerIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <Icon {...props}>
+      <path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z" />
+    </Icon>
+  );
+}
+
+export function DropletIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <Icon {...props}>
+      <path d="M12 2.69s-7 7.44-7 12a7 7 0 0 0 14 0c0-4.56-7-12-7-12z" />
+    </Icon>
+  );
+}
+
 export function MapPinIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <Icon {...props}>

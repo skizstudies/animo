@@ -92,6 +92,14 @@ export function Topbar({ activePage, theme, onToggleTheme }: TopbarProps) {
       <div className="flex-1" />
 
       <div className="flex shrink-0 items-center gap-2.5">
+        <a
+          href="#lgu"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hidden shrink-0 rounded-[13px] border border-border bg-card px-3 py-2.5 font-mono text-[10.5px] font-bold text-ink-soft hover:text-ink sm:block"
+        >
+          LGU view ↗
+        </a>
         <div className="relative" ref={notifRef}>
           <button
             type="button"
