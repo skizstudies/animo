@@ -5,7 +5,7 @@ export const ACTIVE_HAZARD: HazardEvent = {
   name: "Typhoon Kristine",
   signal: 2,
   dateISO: "2026-09-06",
-  clusterName: "Cluster 4 — Barangay Alangilan",
+  clusterName: "Cluster 4 — Alangilan & Balagtas",
   clusterId: "BTG-AL-04",
   source: "pagasa.dost.gov.ph",
   preImageDate: "28 Aug 2026",
