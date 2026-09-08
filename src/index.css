@@ -1,0 +1,142 @@
+@import "tailwindcss";
+
+/* ============================================================
+   ANIMO design tokens — ported from the static prototype.
+   Light values live in @theme (also registers Tailwind utilities
+   like bg-card, text-ink-soft, border-divider, etc). Dark values
+   override the same custom properties under body[data-theme="dark"],
+   so every utility that references them repaints automatically.
+
+   --color-white is deliberately NOT redefined in dark mode — it's
+   the literal-white token for text/icons on the always-dark-green
+   sidebar. Collapsing it with --color-card broke dark mode once
+   already (sidebar text went invisible). Keep them separate.
+   ============================================================ */
+@theme {
+  --color-bg: #ffffff;
+  --color-sidebar: #2f7a45;
+  --color-sidebar-deep: #1c5230;
+  --color-success: #379157;
+  --color-warning: #eab000;
+  --color-danger: #dd5330;
+  --color-border: #dbe3d7;
+  --color-white: #ffffff;
+  --color-card: #ffffff;
+  --color-ink: #152018;
+  --color-ink-soft: #5c6d60;
+  --color-text-warn: #8a6a04;
+  --color-text-success: #2c6b40;
+  --color-text-danger: #c0451f;
+  --color-divider: #e9eee6;
+  --color-hover: #f3f6f1;
+  --color-dot-muted: #b7c2b9;
+
+  --font-sans: "Figtree", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+:root {
+  --shadow: 0 30px 60px -20px rgba(30, 50, 35, 0.14), 0 8px 20px -10px rgba(30, 50, 35, 0.08);
+  --shadow-sm: 0 12px 28px -12px rgba(30, 50, 35, 0.1);
+  --grid-line: rgba(55, 145, 87, 0.09);
+  --scanline: rgba(21, 32, 24, 0.035);
+}
+
+body[data-theme="dark"] {
+  --color-bg: #07080a;
+  --color-card: #0e1310;
+  --color-ink: #e9f5ee;
+  --color-ink-soft: #7f9488;
+  --color-border: rgba(110, 231, 160, 0.16);
+  --color-text-warn: #f6c453;
+  --color-text-success: #a9e6ba;
+  --color-text-danger: #ff9d6e;
+  --color-divider: rgba(255, 255, 255, 0.08);
+  --color-hover: rgba(255, 255, 255, 0.045);
+  --color-dot-muted: #5c6b60;
+
+  --shadow: 0 30px 70px -20px rgba(110, 231, 160, 0.1), 0 8px 24px -10px rgba(0, 0, 0, 0.6);
+  --shadow-sm: 0 12px 32px -14px rgba(110, 231, 160, 0.08), 0 4px 14px -6px rgba(0, 0, 0, 0.5);
+  --grid-line: rgba(110, 231, 160, 0.14);
+  --scanline: rgba(110, 231, 160, 0.02);
+}
+
+* {
+  box-sizing: border-box;
+}
+html,
+body,
+#root {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  color: var(--color-ink);
+  background-color: var(--color-bg);
+  background-image: repeating-linear-gradient(
+      0deg,
+      var(--grid-line) 0px,
+      var(--grid-line) 1px,
+      transparent 1px,
+      transparent 42px
+    ),
+    repeating-linear-gradient(90deg, var(--grid-line) 0px, var(--grid-line) 1px, transparent 1px, transparent 42px);
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+  position: relative;
+}
+/* CRT scanline overlay — purely decorative, ported from the prototype */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0) 0px,
+    rgba(0, 0, 0, 0) 2px,
+    var(--scanline) 3px,
+    rgba(0, 0, 0, 0) 4px
+  );
+  mix-blend-mode: multiply;
+}
+body[data-theme="dark"]::after {
+  mix-blend-mode: screen;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 8px;
+}
+
+/* Corner-bracket panel accent — the "console panel" mark used instead of a
+   soft shadow. Apply alongside a relatively-positioned bordered element. */
+.panel-corners {
+  position: relative;
+}
+.panel-corners::before,
+.panel-corners::after {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  pointer-events: none;
+  opacity: 0.55;
+}
+.panel-corners::before {
+  top: -1px;
+  left: -1px;
+  border-top: 2px solid var(--color-success);
+  border-left: 2px solid var(--color-success);
+}
+.panel-corners::after {
+  bottom: -1px;
+  right: -1px;
+  border-bottom: 2px solid var(--color-success);
+  border-right: 2px solid var(--color-success);
+}

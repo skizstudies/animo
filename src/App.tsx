@@ -1,0 +1,35 @@
+import { useState } from "react";
+import { Sidebar } from "./components/layout/Sidebar";
+import { Topbar } from "./components/layout/Topbar";
+import { useTheme } from "./hooks/useTheme";
+import { FarmMap } from "./pages/FarmMap";
+import { Insurance } from "./pages/Insurance";
+import { Overview } from "./pages/Overview";
+import { Recovery } from "./pages/Recovery";
+import type { PageId } from "./types";
+
+const PAGES: Record<PageId, () => React.JSX.Element> = {
+  overview: Overview,
+  insurance: Insurance,
+  recovery: Recovery,
+  "farm-map": FarmMap,
+};
+
+export default function App() {
+  const [activePage, setActivePage] = useState<PageId>("overview");
+  const { theme, toggle } = useTheme();
+
+  const Page = PAGES[activePage];
+
+  return (
+    <div className="flex h-screen gap-5 p-5">
+      <Sidebar activePage={activePage} onNavigate={setActivePage} />
+      <main className="flex min-w-0 flex-1 flex-col overflow-hidden">
+        <Topbar activePage={activePage} theme={theme} onToggleTheme={toggle} />
+        <div className="flex min-h-0 flex-1 flex-col">
+          <Page />
+        </div>
+      </main>
+    </div>
+  );
+}
