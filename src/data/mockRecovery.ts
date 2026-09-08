@@ -15,6 +15,8 @@ export const DAMAGE_REPORT_SECTIONS: DamageReportSection[] = [
     title: "Affected Area Summary",
     status: "ai-filled",
     content: `Cluster ${ACTIVE_HAZARD.clusterId} (${ACTIVE_HAZARD.clusterName}) sustained crop damage from ${ACTIVE_HAZARD.name} (Signal No. ${ACTIVE_HAZARD.signal}), confirmed via Sentinel-2 passes on ${ACTIVE_HAZARD.preImageDate} and ${ACTIVE_HAZARD.postImageDate}. 5 farms across Rice, Corn, and Vegetables are affected.`,
+    dateLabel: "Sep 06, 2026",
+    timeLabel: "11:10 AM",
   },
   {
     id: "s2",
@@ -22,6 +24,8 @@ export const DAMAGE_REPORT_SECTIONS: DamageReportSection[] = [
     status: "ai-filled",
     content:
       "Combined average estimated crop loss across affected farms is 48%, covering 9.4 hectares — see the attached PCIC evidence package for the per-farm breakdown.",
+    dateLabel: "Sep 06, 2026",
+    timeLabel: "11:12 AM",
   },
   {
     id: "s3",

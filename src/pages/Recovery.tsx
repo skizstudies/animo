@@ -1,9 +1,13 @@
 import { useMemo, useState } from "react";
 import { HazardBanner } from "../components/insurance/HazardBanner";
 import { CheckCircleIcon, SendIcon } from "../components/layout/icons";
+import { ReportActivityLog } from "../components/recovery/ReportActivityLog";
 import { ReportSection } from "../components/recovery/ReportSection";
 import { ACTIVE_HAZARD } from "../data/mockInsurance";
 import { DAMAGE_REPORT_RECIPIENT, DAMAGE_REPORT_SECTIONS } from "../data/mockRecovery";
+
+const dateFmt = new Intl.DateTimeFormat("en-PH", { timeZone: "Asia/Manila", month: "short", day: "2-digit", year: "numeric" });
+const timeFmt = new Intl.DateTimeFormat("en-PH", { timeZone: "Asia/Manila", hour: "2-digit", minute: "2-digit", hour12: true });
 
 function composeContent(sectionId: string, answer: string): string {
   switch (sectionId) {
@@ -25,6 +29,7 @@ function makeReferenceNo() {
 
 export function Recovery() {
   const [composed, setComposed] = useState<Record<string, string>>({});
+  const [completedAt, setCompletedAt] = useState<Record<string, { dateLabel: string; timeLabel: string }>>({});
   const [processingId, setProcessingId] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
   const [submittedAt, setSubmittedAt] = useState<Date | null>(null);
@@ -34,10 +39,19 @@ export function Recovery() {
   const resolvedCount = gapSections.filter((s) => composed[s.id]).length;
   const allResolved = resolvedCount === gapSections.length;
 
+  const timeInfo: Record<string, { dateLabel: string; timeLabel: string }> = { ...completedAt };
+  for (const section of DAMAGE_REPORT_SECTIONS) {
+    if (section.status === "ai-filled" && section.dateLabel && section.timeLabel) {
+      timeInfo[section.id] = { dateLabel: section.dateLabel, timeLabel: section.timeLabel };
+    }
+  }
+
   function handleAnswer(sectionId: string, value: string) {
     setProcessingId(sectionId);
     window.setTimeout(() => {
+      const now = new Date();
       setComposed((c) => ({ ...c, [sectionId]: composeContent(sectionId, value) }));
+      setCompletedAt((c) => ({ ...c, [sectionId]: { dateLabel: dateFmt.format(now), timeLabel: timeFmt.format(now) } }));
       setProcessingId(null);
     }, 800);
   }
@@ -82,12 +96,15 @@ export function Recovery() {
               key={section.id}
               section={section}
               answeredContent={composed[section.id]}
+              timeInfo={timeInfo[section.id]}
               processing={processingId === section.id}
               locked={submitted}
               onAnswer={handleAnswer}
             />
           ))}
         </div>
+
+        <ReportActivityLog sections={DAMAGE_REPORT_SECTIONS} timeInfo={timeInfo} />
 
         {!submitted && (
           <div className="mt-auto flex shrink-0 flex-wrap items-center justify-between gap-3 pt-1">

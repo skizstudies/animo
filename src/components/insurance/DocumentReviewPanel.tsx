@@ -2,6 +2,7 @@ import { useState } from "react";
 import { FARMS } from "../../data/mockFarms";
 import type { AffectedFarm, HazardEvent, InsuranceCase } from "../../types";
 import { CheckCircleIcon, DocumentIcon, SendIcon } from "../layout/icons";
+import { DocumentViewerModal, type GeneratedDocId } from "./DocumentViewerModal";
 import { ProcessingLog } from "./ProcessingLog";
 
 interface DocumentReviewPanelProps {
@@ -12,14 +13,15 @@ interface DocumentReviewPanelProps {
   onApprove: (caseId: string) => void;
 }
 
-const GENERATED_DOCS = [
-  "PCIC Notice of Loss — auto-filled from farm records",
-  "Damage Assessment Summary — Sentinel-2 change detection",
-  "Photo & Satellite Evidence Package",
+const GENERATED_DOCS: { id: GeneratedDocId; label: string }[] = [
+  { id: "notice", label: "PCIC Notice of Loss — auto-filled from farm records" },
+  { id: "summary", label: "Damage Assessment Summary — Sentinel-2 change detection" },
+  { id: "evidence", label: "Photo & Satellite Evidence Package" },
 ];
 
 export function DocumentReviewPanel({ insuranceCase, farm, hazard, onBack, onApprove }: DocumentReviewPanelProps) {
   const [verified, setVerified] = useState(false);
+  const [viewingDocId, setViewingDocId] = useState<GeneratedDocId | null>(null);
   const barangay = FARMS.find((f) => f.id === farm.farmId)?.barangay;
   const sent = insuranceCase.stage === "sent";
   const sentLog = insuranceCase.log.find((l) => l.stage === "sent");
@@ -50,11 +52,18 @@ export function DocumentReviewPanel({ insuranceCase, farm, hazard, onBack, onApp
         <span className="font-mono text-[10px] font-bold tracking-[1px] text-ink-soft uppercase">
           Documents generated
         </span>
-        <ul className="mt-2 flex flex-col gap-2">
+        <ul className="mt-2 flex flex-col gap-1">
           {GENERATED_DOCS.map((doc) => (
-            <li key={doc} className="flex items-center gap-2.5 text-[12.5px] text-ink">
-              <DocumentIcon className="h-4 w-4 shrink-0 text-ink-soft" />
-              {doc}
+            <li key={doc.id}>
+              <button
+                type="button"
+                onClick={() => setViewingDocId(doc.id)}
+                className="flex w-full items-center gap-2.5 rounded-[4px] px-1.5 py-1 text-left text-[12.5px] text-ink hover:bg-hover"
+              >
+                <DocumentIcon className="h-4 w-4 shrink-0 text-ink-soft" />
+                <span className="flex-1 underline decoration-dotted underline-offset-2">{doc.label}</span>
+                <span className="shrink-0 font-mono text-[10px] font-bold text-text-success uppercase">View</span>
+              </button>
             </li>
           ))}
         </ul>
@@ -101,6 +110,17 @@ export function DocumentReviewPanel({ insuranceCase, farm, hazard, onBack, onApp
           </>
         )}
       </div>
+
+      {viewingDocId && (
+        <DocumentViewerModal
+          docId={viewingDocId}
+          insuranceCase={insuranceCase}
+          farm={farm}
+          hazard={hazard}
+          barangay={barangay}
+          onClose={() => setViewingDocId(null)}
+        />
+      )}
     </div>
   );
 }

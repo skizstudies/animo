@@ -17,9 +17,9 @@ interface SidebarProps {
 
 export function Sidebar({ activePage, onNavigate }: SidebarProps) {
   return (
-    <aside className="flex w-[264px] shrink-0 flex-col overflow-hidden rounded-[28px] border border-success/20 bg-gradient-to-b from-sidebar to-sidebar-deep p-[18px] pt-[26px] text-white shadow-[var(--shadow)]">
+    <aside className="panel-corners panel-corners-light relative flex w-[264px] shrink-0 flex-col rounded-[6px] border border-success/20 bg-gradient-to-b from-sidebar to-sidebar-deep p-[18px] pt-[26px] text-white shadow-[var(--shadow)]">
       <div className="flex items-center gap-[11px] px-2 pb-[26px]">
-        <div className="h-[38px] w-[38px] shrink-0 overflow-hidden rounded-[11px]">
+        <div className="h-[38px] w-[38px] shrink-0 overflow-hidden rounded-[6px]">
           <img src="/animo-logo.png" alt="ANIMO" className="h-full w-full object-contain" />
         </div>
         <div className="flex flex-col leading-tight">
@@ -38,7 +38,7 @@ export function Sidebar({ activePage, onNavigate }: SidebarProps) {
                 type="button"
                 onClick={() => onNavigate(item.id)}
                 aria-current={active ? "page" : undefined}
-                className={`flex w-full items-center gap-[11px] rounded-xl px-3 py-2.5 text-left text-sm font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-white/70 ${
+                className={`flex w-full items-center gap-[11px] rounded-[6px] px-3 py-2.5 text-left text-sm font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-white/70 ${
                   active
                     ? "bg-success/10 text-[#eafff0] shadow-[inset_3px_0_0_var(--color-success),0_0_22px_-4px_rgba(110,231,160,0.4)]"
                     : "text-white/70 hover:bg-white/10 hover:text-white"
@@ -56,7 +56,7 @@ export function Sidebar({ activePage, onNavigate }: SidebarProps) {
 
       <button
         type="button"
-        className="flex items-center gap-2.5 rounded-2xl bg-white/[0.07] p-3 text-left transition-colors hover:bg-white/[0.13]"
+        className="flex items-center gap-2.5 rounded-[6px] bg-white/[0.07] p-3 text-left transition-colors hover:bg-white/[0.13]"
       >
         <div className="flex h-[34px] w-[34px] shrink-0 items-center justify-center rounded-[10px] bg-success text-[13px] font-bold text-sidebar-deep">
           RB

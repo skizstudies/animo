@@ -140,6 +140,12 @@ body[data-theme="dark"]::after {
   border-bottom: 2px solid var(--color-success);
   border-right: 2px solid var(--color-success);
 }
+/* Same mark, light-on-dark — for panels sitting on the sidebar's own green
+   gradient, where the success-green bracket has no contrast to read against. */
+.panel-corners-light::before,
+.panel-corners-light::after {
+  border-color: rgba(255, 255, 255, 0.4) !important;
+}
 
 /* Page-switch transition — the content outlet is remounted (React key=
    activePage) on every nav change, so this replays each time. */

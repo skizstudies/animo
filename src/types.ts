@@ -72,4 +72,8 @@ export interface DamageReportSection {
   status: "ai-filled" | "needs-input";
   content?: string;
   prompt?: string;
+  /** When the agent drafted this section (ai-filled only — needs-input
+   * sections get their timestamp at answer time, not seeded). */
+  dateLabel?: string;
+  timeLabel?: string;
 }

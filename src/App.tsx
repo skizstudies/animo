@@ -19,9 +19,9 @@ export default function App() {
   }
 
   return (
-    <div className="flex h-screen gap-5 p-5">
+    <div className="flex h-screen gap-8 p-5">
       <Sidebar activePage={activePage} onNavigate={setActivePage} />
-      <main className="flex min-w-0 flex-1 flex-col overflow-hidden">
+      <main className="flex min-h-0 min-w-0 flex-1 flex-col">
         <Topbar activePage={activePage} theme={theme} onToggleTheme={toggle} />
         <div key={activePage} className="page-transition flex min-h-0 flex-1 flex-col">
           {activePage === "overview" && <Overview onNavigate={setActivePage} />}

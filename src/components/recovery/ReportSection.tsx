@@ -5,12 +5,13 @@ import { CheckCircleIcon, SparklesIcon } from "../layout/icons";
 interface ReportSectionProps {
   section: DamageReportSection;
   answeredContent?: string;
+  timeInfo?: { dateLabel: string; timeLabel: string };
   processing: boolean;
   locked: boolean;
   onAnswer: (sectionId: string, value: string) => void;
 }
 
-export function ReportSection({ section, answeredContent, processing, locked, onAnswer }: ReportSectionProps) {
+export function ReportSection({ section, answeredContent, timeInfo, processing, locked, onAnswer }: ReportSectionProps) {
   const [draft, setDraft] = useState("");
 
   const isAiFilled = section.status === "ai-filled";
@@ -34,7 +35,14 @@ export function ReportSection({ section, answeredContent, processing, locked, on
       </div>
 
       {content ? (
-        <p className="text-[13px] leading-relaxed text-ink-soft">{content}</p>
+        <>
+          <p className="text-[13px] leading-relaxed text-ink-soft">{content}</p>
+          {timeInfo && (
+            <p className="mt-1.5 font-mono text-[10.5px] text-ink-soft/70">
+              {timeInfo.dateLabel} · {timeInfo.timeLabel}
+            </p>
+          )}
+        </>
       ) : processing ? (
         <p className="animate-pulse text-[12.5px] text-ink-soft italic">AI is folding your answer into the report…</p>
       ) : (
