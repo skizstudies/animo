@@ -22,7 +22,7 @@ export function Sidebar({ activePage, onNavigate }: SidebarProps) {
 
   return (
     <aside className="no-print panel-corners panel-corners-light relative flex w-[264px] shrink-0 flex-col rounded-[6px] border border-success/20 bg-gradient-to-b from-sidebar to-sidebar-deep p-[18px] pt-[26px] text-white shadow-[var(--shadow)]">
-      <div className="flex items-center gap-[11px] px-2 pb-[26px]">
+      <div className="flex items-center justify-center gap-2 pb-[26px]">
         <div className="h-[52px] w-[52px] shrink-0 overflow-hidden rounded-[6px]">
           <img src="/animo-logo.png" alt="ANIMO" className="h-full w-full object-contain" />
         </div>

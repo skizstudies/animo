@@ -24,16 +24,18 @@ interface StatTileProps {
 export function StatTile({ icon: Icon, value, label, accent = "success", caption, wide }: StatTileProps) {
   return (
     <div
-      className={`panel-corners flex flex-col gap-3 rounded-[6px] border border-border bg-card p-5 shadow-[var(--shadow-sm)] ${wide ? "sm:col-span-2" : ""}`}
+      className={`panel-corners flex h-full flex-col rounded-[6px] border border-border bg-card p-6 shadow-[var(--shadow-sm)] ${wide ? "sm:col-span-2" : ""}`}
     >
-      <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-[10px] ${ACCENT_CLASSES[accent]}`}>
-        <Icon className="h-5 w-5" />
+      <div className="flex flex-1 flex-col justify-center gap-4">
+        <div className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-[10px] ${ACCENT_CLASSES[accent]}`}>
+          <Icon className="h-6 w-6" />
+        </div>
+        <div>
+          <div className="text-[56px] leading-none font-extrabold tracking-tight text-ink">{value}</div>
+          <div className="mt-2 font-mono text-[13px] font-bold tracking-[0.8px] text-ink-soft uppercase">{label}</div>
+        </div>
       </div>
-      <div>
-        <div className="text-[39px] leading-none font-extrabold tracking-tight text-ink">{value}</div>
-        <div className="mt-1.5 font-mono text-[12px] font-bold tracking-[0.8px] text-ink-soft uppercase">{label}</div>
-      </div>
-      {caption && <div className="mt-auto text-[13px] text-ink-soft">{caption}</div>}
+      {caption && <div className="mt-4 border-t border-divider pt-4 text-[13.5px] text-ink-soft">{caption}</div>}
     </div>
   );
 }
