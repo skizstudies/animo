@@ -26,7 +26,7 @@ export function Overview() {
     .filter((s) => s.count > 0);
 
   return (
-    <div id="print-area" className="flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto pr-1">
+    <div id="print-area" className="flex min-h-0 flex-1 flex-col gap-4 overflow-hidden">
       <div className="panel-corners flex shrink-0 flex-wrap items-center gap-4 rounded-[6px] border border-border bg-card px-5 py-4 shadow-[var(--shadow-sm)]">
         <div className="h-14 w-14 shrink-0 overflow-hidden rounded-[10px] bg-sidebar">
           <img src="/animo-logo.png" alt="ANIMO" className="h-full w-full object-contain" />
