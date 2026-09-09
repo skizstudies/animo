@@ -5,15 +5,8 @@ import { DocumentReviewPanel } from "../components/insurance/DocumentReviewPanel
 import { HazardBanner } from "../components/insurance/HazardBanner";
 import { SatelliteCompare } from "../components/insurance/SatelliteCompare";
 import { ACTIVE_HAZARD, AFFECTED_FARMS, INSURANCE_CASES } from "../data/mockInsurance";
-import type { PipelineStage, StageLogEntry } from "../types";
-
-const STAGE_SUMMARY_LABEL: Record<PipelineStage, string> = {
-  messaged: "awaiting reply",
-  replied: "awaiting consent",
-  consent: "gathering evidence",
-  compiled: "ready for review",
-  sent: "sent to PCIC",
-};
+import { getPolicy } from "../data/mockPolicies";
+import type { StageLogEntry } from "../types";
 
 const dateFmt = new Intl.DateTimeFormat("en-PH", { timeZone: "Asia/Manila", month: "short", day: "2-digit", year: "numeric" });
 const timeFmt = new Intl.DateTimeFormat("en-PH", { timeZone: "Asia/Manila", hour: "2-digit", minute: "2-digit", hour12: true });
@@ -37,15 +30,17 @@ export function Insurance({ onViewFarm }: InsuranceProps) {
   const [reviewCaseId, setReviewCaseId] = useState<string | null>(null);
   const [approvals, setApprovals] = useState<Record<string, Approval>>({});
 
-  const cases = INSURANCE_CASES.map((c) => {
+  const cases = INSURANCE_CASES.filter((c) => getPolicy(c.farmId)?.status === "active").map((c) => {
     const approval = approvals[c.id];
     if (!approval) return c;
     return { ...c, stage: "sent" as const, referenceNo: approval.referenceNo, log: [...c.log, approval.logEntry] };
   });
 
   const selectedCase = cases.find((c) => c.id === selectedCaseId) ?? null;
+  const selectedPolicy = selectedCase ? getPolicy(selectedCase.farmId) : undefined;
   const reviewCase = cases.find((c) => c.id === reviewCaseId) ?? null;
   const reviewFarm = reviewCase ? AFFECTED_FARMS.find((f) => f.farmId === reviewCase.farmId) : undefined;
+  const reviewPolicy = reviewCase ? getPolicy(reviewCase.farmId) : undefined;
 
   function openConversation(id: string) {
     setReviewCaseId(null);
@@ -73,11 +68,6 @@ export function Insurance({ onViewFarm }: InsuranceProps) {
     }));
   }
 
-  const pendingReview = cases.filter((c) => c.stage === "compiled").length;
-  const summary = (Object.keys(STAGE_SUMMARY_LABEL) as PipelineStage[])
-    .map((stage) => ({ stage, count: cases.filter((c) => c.stage === stage).length }))
-    .filter((s) => s.count > 0);
-
   return (
     <div className="flex flex-1 flex-col gap-4 overflow-y-auto pr-1">
       <HazardBanner hazard={ACTIVE_HAZARD} />
@@ -88,11 +78,12 @@ export function Insurance({ onViewFarm }: InsuranceProps) {
             insuranceCase={reviewCase}
             farm={reviewFarm}
             hazard={ACTIVE_HAZARD}
+            policy={reviewPolicy}
             onBack={closePanels}
             onApprove={handleApprove}
           />
         ) : selectedCase ? (
-          <ConversationThread insuranceCase={selectedCase} onBack={closePanels} />
+          <ConversationThread insuranceCase={selectedCase} policy={selectedPolicy} onBack={closePanels} />
         ) : (
           <SatelliteCompare />
         )}
@@ -104,17 +95,6 @@ export function Insurance({ onViewFarm }: InsuranceProps) {
           onReviewCase={openReview}
           onViewFarm={onViewFarm}
         />
-      </div>
-
-      <div className="flex shrink-0 flex-wrap items-center gap-x-4 gap-y-1.5 rounded-[6px] border border-border bg-card px-5 py-3.5 shadow-[var(--shadow-sm)]">
-        <span className="text-[12.5px] text-ink-soft">
-          {pendingReview > 0 ? `${pendingReview} ready for your review —` : "No officer action needed —"}
-        </span>
-        {summary.map(({ stage, count }) => (
-          <span key={stage} className="font-mono text-[11.5px] font-bold text-ink">
-            {count} {STAGE_SUMMARY_LABEL[stage]}
-          </span>
-        ))}
       </div>
     </div>
   );

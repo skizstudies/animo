@@ -167,3 +167,31 @@ body[data-theme="dark"]::after {
     animation: none;
   }
 }
+
+/* Print / "Save as PDF" — hides the app chrome (sidebar, topbar, anything
+   marked .no-print) and lets the printed page's own content flow normally
+   instead of being clipped to the app's h-screen/overflow-hidden shell. */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    overflow: visible !important;
+    background: none !important;
+  }
+  body::after {
+    display: none !important;
+  }
+  .app-shell,
+  .app-main,
+  .page-transition,
+  #print-area {
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+  }
+  .app-shell {
+    padding: 0 !important;
+    gap: 0 !important;
+  }
+}

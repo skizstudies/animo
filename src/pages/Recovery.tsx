@@ -1,10 +1,17 @@
 import { useMemo, useState } from "react";
 import { HazardBanner } from "../components/insurance/HazardBanner";
-import { CheckCircleIcon, SendIcon } from "../components/layout/icons";
+import { CheckCircleIcon, ChevronRightIcon, SendIcon } from "../components/layout/icons";
+import { PreviousReportModal } from "../components/recovery/PreviousReportModal";
+import { ReportFinalReview } from "../components/recovery/ReportFinalReview";
 import { ReportSectionList } from "../components/recovery/ReportSectionList";
 import { ReportSectionModal } from "../components/recovery/ReportSectionModal";
 import { ACTIVE_HAZARD } from "../data/mockInsurance";
 import { DAMAGE_REPORT_RECIPIENT, DAMAGE_REPORT_SECTIONS } from "../data/mockRecovery";
+import { REPORT_HISTORY } from "../data/mockReportsHistory";
+
+const PREVIOUSLY_SUBMITTED = REPORT_HISTORY.filter(
+  (r) => r.status === "submitted" && r.clusterId !== ACTIVE_HAZARD.clusterId,
+);
 
 const dateFmt = new Intl.DateTimeFormat("en-PH", { timeZone: "Asia/Manila", month: "short", day: "2-digit", year: "numeric" });
 const timeFmt = new Intl.DateTimeFormat("en-PH", { timeZone: "Asia/Manila", hour: "2-digit", minute: "2-digit", hour12: true });
@@ -35,8 +42,11 @@ export function Recovery() {
   const [touchedAt, setTouchedAt] = useState<Record<string, TimeInfo>>({});
   const [processingId, setProcessingId] = useState<string | null>(null);
   const [openSectionId, setOpenSectionId] = useState<string | null>(null);
+  const [reviewing, setReviewing] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [submittedAt, setSubmittedAt] = useState<Date | null>(null);
+  const [viewingReportId, setViewingReportId] = useState<string | null>(null);
+  const viewingReport = PREVIOUSLY_SUBMITTED.find((r) => r.id === viewingReportId) ?? null;
   const referenceNo = useMemo(() => makeReferenceNo(), []);
 
   const gapSections = DAMAGE_REPORT_SECTIONS.filter((s) => s.status === "needs-input");
@@ -73,6 +83,23 @@ export function Recovery() {
   function handleSubmit() {
     setSubmittedAt(new Date());
     setSubmitted(true);
+    setReviewing(false);
+  }
+
+  if (reviewing && !submitted) {
+    return (
+      <div className="flex flex-1 flex-col gap-4 overflow-y-auto pr-1">
+        <HazardBanner hazard={ACTIVE_HAZARD} />
+        <ReportFinalReview
+          sections={DAMAGE_REPORT_SECTIONS}
+          viewState={viewState}
+          recipient={DAMAGE_REPORT_RECIPIENT}
+          clusterId={ACTIVE_HAZARD.clusterId}
+          onBack={() => setReviewing(false)}
+          onSubmit={handleSubmit}
+        />
+      </div>
+    );
   }
 
   return (
@@ -86,8 +113,8 @@ export function Recovery() {
               <CheckCircleIcon className="h-4 w-4" />
             </span>
             <div>
-              <div className="text-[13px] font-extrabold text-ink">Submitted to {DAMAGE_REPORT_RECIPIENT}</div>
-              <div className="font-mono text-[11px] text-ink-soft">
+              <div className="text-[15px] font-extrabold text-ink">Submitted to {DAMAGE_REPORT_RECIPIENT}</div>
+              <div className="font-mono text-[12.5px] text-ink-soft">
                 Ref. {referenceNo}
                 {submittedAt && ` · ${submittedAt.toLocaleString("en-PH", { dateStyle: "medium", timeStyle: "short" })}`}
               </div>
@@ -95,13 +122,13 @@ export function Recovery() {
           </div>
         ) : (
           <div className="shrink-0">
-            <span className="font-mono text-[10px] font-bold tracking-[1.2px] text-ink-soft uppercase">
+            <span className="font-mono text-[11.5px] font-bold tracking-[1.2px] text-ink-soft uppercase">
               Road to Recovery · for {DAMAGE_REPORT_RECIPIENT}
             </span>
-            <h3 className="mt-0.5 text-[15px] font-extrabold text-ink">
+            <h3 className="mt-0.5 text-[17px] font-extrabold text-ink">
               Damage Assessment Report — {ACTIVE_HAZARD.clusterId}
             </h3>
-            <p className="mt-1 text-[12.5px] text-ink-soft">
+            <p className="mt-1 text-[14.5px] text-ink-soft">
               Tap a section to read it in full, or answer what the agent couldn't determine on its own.
             </p>
           </div>
@@ -111,7 +138,7 @@ export function Recovery() {
 
         {!submitted && (
           <div className="mt-auto flex shrink-0 flex-wrap items-center justify-between gap-3 pt-1">
-            <span className="text-[12.5px] text-ink-soft">
+            <span className="text-[14.5px] text-ink-soft">
               {allResolved
                 ? "Every gap is filled — ready to submit."
                 : `${gapSections.length - resolvedCount} of ${gapSections.length} gaps still need your input.`}
@@ -119,15 +146,43 @@ export function Recovery() {
             <button
               type="button"
               disabled={!allResolved}
-              onClick={handleSubmit}
-              className="flex items-center gap-2 rounded-[4px] bg-sidebar px-4 py-2.5 text-[12.5px] font-bold text-white transition-opacity hover:bg-sidebar-deep disabled:cursor-not-allowed disabled:opacity-40"
+              onClick={() => setReviewing(true)}
+              className="flex items-center gap-2 rounded-[4px] bg-sidebar px-4 py-2.5 text-[14.5px] font-bold text-white transition-opacity hover:bg-sidebar-deep disabled:cursor-not-allowed disabled:opacity-40"
             >
               <SendIcon className="h-3.5 w-3.5" />
-              Submit to the LGU
+              {allResolved ? "Review final report" : "Submit to the LGU"}
             </button>
           </div>
         )}
       </div>
+
+      {PREVIOUSLY_SUBMITTED.length > 0 && (
+        <div className="panel-corners shrink-0 rounded-[6px] border border-border bg-card p-5 shadow-[var(--shadow-sm)]">
+          <span className="font-mono text-[11.5px] font-bold tracking-[1.2px] text-ink-soft uppercase">
+            Previously submitted to the LGU
+          </span>
+          <div className="mt-2 flex flex-col gap-1.5">
+            {PREVIOUSLY_SUBMITTED.map((r) => (
+              <button
+                key={r.id}
+                type="button"
+                onClick={() => setViewingReportId(r.id)}
+                className="flex items-center gap-3 rounded-[6px] border border-border bg-bg px-4 py-3 text-left transition-colors hover:border-success/40 hover:bg-success/6"
+              >
+                <div className="min-w-0 flex-1">
+                  <div className="text-[14.5px] font-bold text-ink">{r.hazardName}</div>
+                  <div className="text-[13px] text-ink-soft">
+                    {r.clusterId} · Ref. {r.referenceNo} · {r.receivedLabel}
+                  </div>
+                </div>
+                <ChevronRightIcon className="h-4 w-4 shrink-0 text-ink-soft" />
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {viewingReport && <PreviousReportModal report={viewingReport} onClose={() => setViewingReportId(null)} />}
 
       {openSection && (
         <ReportSectionModal

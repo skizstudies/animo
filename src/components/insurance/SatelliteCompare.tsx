@@ -27,10 +27,10 @@ export function SatelliteCompare() {
     <div className="panel-corners flex flex-1 flex-col rounded-[6px] border border-border bg-card p-5 shadow-[var(--shadow-sm)]">
       <div className="mb-4 flex shrink-0 items-start justify-between gap-3">
         <div>
-          <span className="font-mono text-[10px] font-bold tracking-[1.2px] text-ink-soft uppercase">
+          <span className="font-mono text-[11.5px] font-bold tracking-[1.2px] text-ink-soft uppercase">
             ESRI World Imagery · real pilot plot
           </span>
-          <h3 className="mt-0.5 text-[15px] font-extrabold text-ink">Namunga, Rosario — plot 1</h3>
+          <h3 className="mt-0.5 text-[17px] font-extrabold text-ink">Namunga, Rosario — plot 1</h3>
         </div>
         <div className="flex shrink-0 rounded-[4px] border border-border bg-bg p-0.5">
           {(["before", "after"] as const).map((f) => (
@@ -38,7 +38,7 @@ export function SatelliteCompare() {
               key={f}
               type="button"
               onClick={() => setFrame(f)}
-              className={`rounded-[3px] px-3 py-1.5 text-[11.5px] font-bold capitalize transition-colors ${
+              className={`rounded-[3px] px-3 py-1.5 text-[13px] font-bold capitalize transition-colors ${
                 frame === f ? "bg-sidebar text-white" : "text-ink-soft hover:text-ink"
               }`}
             >
@@ -58,7 +58,7 @@ export function SatelliteCompare() {
       </div>
 
       <div className="mt-4 flex shrink-0 flex-wrap items-center justify-between gap-x-3 gap-y-1">
-        <span className="font-mono text-[10.5px] text-ink-soft">
+        <span className="font-mono text-[12px] text-ink-soft">
           Sentinel-2 NDVI ({frame}): {reading.dateLabel} · {reading.ndviMean.toFixed(2)}
         </span>
       </div>

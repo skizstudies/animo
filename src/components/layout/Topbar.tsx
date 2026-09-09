@@ -73,17 +73,17 @@ export function Topbar({ activePage, theme, onToggleTheme }: TopbarProps) {
   }, [notifOpen]);
 
   return (
-    <div className="mb-[18px] flex shrink-0 items-center gap-7">
+    <div className="no-print mb-[18px] flex shrink-0 items-center gap-7">
       <div className="shrink-0">
         <div className="flex items-center gap-3">
-          <h1 className="text-[21px] font-extrabold tracking-tight text-ink">
+          <h1 className="text-[32px] leading-[42px] font-extrabold tracking-tight text-ink">
             {isOverview ? `${greeting}, Regina!` : PAGE_TITLES[activePage]}
           </h1>
           {isOverview && (
             <>
-              <div className="h-[18px] w-0.5 shrink-0 rounded bg-success" />
-              <span className="font-mono text-[13.5px] font-bold tracking-wide text-ink-soft">{date}</span>
-              <span className="font-mono text-[13.5px] font-bold tracking-wide text-ink-soft">{time}</span>
+              <div className="h-[20px] w-0.5 shrink-0 rounded bg-success" />
+              <span className="font-mono text-[17px] font-bold tracking-wide text-ink-soft">{date}</span>
+              <span className="font-mono text-[17px] font-bold tracking-wide text-ink-soft">{time}</span>
             </>
           )}
         </div>
@@ -96,7 +96,7 @@ export function Topbar({ activePage, theme, onToggleTheme }: TopbarProps) {
           href="#lgu"
           target="_blank"
           rel="noopener noreferrer"
-          className="hidden shrink-0 rounded-[13px] border border-border bg-card px-3 py-2.5 font-mono text-[10.5px] font-bold text-ink-soft hover:text-ink sm:block"
+          className="hidden shrink-0 rounded-[13px] border border-border bg-card px-3 py-2.5 font-mono text-[12px] font-bold text-ink-soft hover:text-ink sm:block"
         >
           LGU view ↗
         </a>
@@ -111,21 +111,21 @@ export function Topbar({ activePage, theme, onToggleTheme }: TopbarProps) {
           >
             <BellIcon className="h-[18px] w-[18px]" />
             {unreadCount > 0 && (
-              <span className="absolute -top-1.5 -right-1.5 flex h-[19px] w-[19px] items-center justify-center rounded-full border-[2.5px] border-bg bg-danger text-[10px] font-extrabold text-white">
+              <span className="absolute -top-1.5 -right-1.5 flex h-[19px] w-[19px] items-center justify-center rounded-full border-[2.5px] border-bg bg-danger text-[11.5px] font-extrabold text-white">
                 {unreadCount}
               </span>
             )}
           </button>
           {notifOpen && (
             <div className="absolute top-[50px] right-0 z-20 flex w-[300px] flex-col gap-1 rounded-[6px] border border-border bg-card p-2 text-left shadow-[var(--shadow)]">
-              <div className="px-2.5 pt-2 pb-2.5 text-[12px] font-extrabold text-ink">Notifications</div>
+              <div className="px-2.5 pt-2 pb-2.5 text-[14px] font-extrabold text-ink">Notifications</div>
               {MOCK_NOTIFICATIONS.map((n) => (
                 <div key={n.id} className="flex gap-2.5 rounded-[11px] p-2.5 hover:bg-hover">
                   {n.unread && <div className="mt-1 h-[7px] w-[7px] shrink-0 rounded-full bg-sidebar" />}
                   <div className={n.unread ? "" : "pl-[19px]"}>
-                    <b className="block text-[12px] font-bold text-ink">{n.title}</b>
-                    <p className="mt-0.5 text-[11px] text-ink-soft">{n.body}</p>
-                    <span className="mt-[3px] block text-[10px] text-ink-soft">{n.time}</span>
+                    <b className="block text-[14px] font-bold text-ink">{n.title}</b>
+                    <p className="mt-0.5 text-[12.5px] text-ink-soft">{n.body}</p>
+                    <span className="mt-[3px] block text-[11.5px] text-ink-soft">{n.time}</span>
                   </div>
                 </div>
               ))}

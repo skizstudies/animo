@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import type { AffectedFarm, HazardEvent, InsuranceCase } from "../../types";
+import type { AffectedFarm, HazardEvent, InsurancePolicy, InsuranceCase } from "../../types";
 import { CloseIcon } from "../layout/icons";
 
 export type GeneratedDocId = "notice" | "summary" | "evidence";
@@ -9,20 +9,21 @@ interface DocumentViewerModalProps {
   insuranceCase: InsuranceCase;
   farm: AffectedFarm;
   hazard: HazardEvent;
+  policy?: InsurancePolicy;
   barangay?: string;
   onClose: () => void;
 }
 
 function Field({ label, value }: { label: string; value: string }) {
   return (
-    <div className="flex items-center justify-between gap-4 border-b border-divider py-2 text-[12.5px] last:border-b-0">
-      <span className="font-mono text-[10.5px] text-ink-soft uppercase">{label}</span>
+    <div className="flex items-center justify-between gap-4 border-b border-divider py-2 text-[14.5px] last:border-b-0">
+      <span className="font-mono text-[12px] text-ink-soft uppercase">{label}</span>
       <span className="font-bold text-ink">{value}</span>
     </div>
   );
 }
 
-export function DocumentViewerModal({ docId, insuranceCase, farm, hazard, barangay, onClose }: DocumentViewerModalProps) {
+export function DocumentViewerModal({ docId, insuranceCase, farm, hazard, policy, barangay, onClose }: DocumentViewerModalProps) {
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
       if (e.key === "Escape") onClose();
@@ -44,10 +45,10 @@ export function DocumentViewerModal({ docId, insuranceCase, farm, hazard, barang
       >
         <div className="flex shrink-0 items-center justify-between border-b border-divider bg-bg px-5 py-4">
           <div>
-            <span className="font-mono text-[10px] font-bold tracking-[1px] text-ink-soft uppercase">
+            <span className="font-mono text-[11.5px] font-bold tracking-[1px] text-ink-soft uppercase">
               Agent-generated document
             </span>
-            <h3 className="mt-0.5 text-[14.5px] font-extrabold text-ink">
+            <h3 className="mt-0.5 text-[16.5px] font-extrabold text-ink">
               {docId === "notice" && "PCIC Notice of Loss"}
               {docId === "summary" && "Damage Assessment Summary"}
               {docId === "evidence" && "Photo & Satellite Evidence Package"}
@@ -66,10 +67,12 @@ export function DocumentViewerModal({ docId, insuranceCase, farm, hazard, barang
         <div className="flex-1 overflow-y-auto px-5 py-4">
           {docId === "notice" && (
             <div>
-              <p className="mb-3 text-center font-mono text-[10.5px] font-bold tracking-[1px] text-ink-soft uppercase">
+              <p className="mb-3 text-center font-mono text-[12px] font-bold tracking-[1px] text-ink-soft uppercase">
                 Philippine Crop Insurance Corporation
               </p>
               <div className="rounded-[6px] border border-divider bg-bg px-4">
+                {policy?.policyNo && <Field label="Policy no." value={policy.policyNo} />}
+                {policy?.registeredDateLabel && <Field label="Policy active since" value={policy.registeredDateLabel} />}
                 <Field label="Claimant" value={insuranceCase.farmerName} />
                 <Field label="Farm location" value={barangay ? `Brgy. ${barangay}` : "—"} />
                 <Field label="Crop insured" value={farm.crop} />
@@ -84,7 +87,7 @@ export function DocumentViewerModal({ docId, insuranceCase, farm, hazard, barang
 
           {docId === "summary" && (
             <div>
-              <p className="text-[13px] leading-relaxed text-ink">
+              <p className="text-[15px] leading-relaxed text-ink">
                 Sentinel-2 change detection over {hazard.clusterName} ({hazard.clusterId}) shows crop-health decline
                 consistent with {hazard.name} (Signal No. {hazard.signal}), comparing passes on {hazard.preImageDate}{" "}
                 and {hazard.postImageDate}. {insuranceCase.farmerName}'s {farm.crop.toLowerCase()} farm (
@@ -108,7 +111,7 @@ export function DocumentViewerModal({ docId, insuranceCase, farm, hazard, barang
                     alt="ESRI World Imagery over Namunga, Rosario, plot 1 (before)"
                     className="aspect-[4/3] w-full rounded-[4px] object-cover"
                   />
-                  <span className="mt-1 block text-center font-mono text-[10px] text-ink-soft uppercase">Before</span>
+                  <span className="mt-1 block text-center font-mono text-[11.5px] text-ink-soft uppercase">Before</span>
                 </div>
                 <div>
                   <img
@@ -116,7 +119,7 @@ export function DocumentViewerModal({ docId, insuranceCase, farm, hazard, barang
                     alt="ESRI World Imagery over Namunga, Rosario, plot 1 (after)"
                     className="aspect-[4/3] w-full rounded-[4px] object-cover"
                   />
-                  <span className="mt-1 block text-center font-mono text-[10px] text-ink-soft uppercase">After</span>
+                  <span className="mt-1 block text-center font-mono text-[11.5px] text-ink-soft uppercase">After</span>
                 </div>
               </div>
               <div className="mt-3 rounded-[6px] border border-divider bg-bg px-4">
@@ -125,7 +128,7 @@ export function DocumentViewerModal({ docId, insuranceCase, farm, hazard, barang
                 <Field label="NDVI (before)" value="01 Apr 2026 · 0.56" />
                 <Field label="NDVI (after)" value="22 Aug 2026 · 0.68" />
               </div>
-              <p className="mt-3 text-[11.5px] text-ink-soft">
+              <p className="mt-3 text-[13px] text-ink-soft">
                 ESRI provides the sharp display photos; Sentinel Hub NDVI stays the analytical source behind the
                 before/after numbers.
               </p>
