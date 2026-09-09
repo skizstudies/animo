@@ -6,15 +6,7 @@ import { HazardBanner } from "../components/insurance/HazardBanner";
 import { SatelliteCompare } from "../components/insurance/SatelliteCompare";
 import { ACTIVE_HAZARD, AFFECTED_FARMS, INSURANCE_CASES } from "../data/mockInsurance";
 import { getPolicy } from "../data/mockPolicies";
-import type { PipelineStage, StageLogEntry } from "../types";
-
-const STAGE_SUMMARY_LABEL: Record<PipelineStage, string> = {
-  messaged: "awaiting reply",
-  replied: "awaiting consent",
-  consent: "gathering evidence",
-  compiled: "ready for review",
-  sent: "sent to PCIC",
-};
+import type { StageLogEntry } from "../types";
 
 const dateFmt = new Intl.DateTimeFormat("en-PH", { timeZone: "Asia/Manila", month: "short", day: "2-digit", year: "numeric" });
 const timeFmt = new Intl.DateTimeFormat("en-PH", { timeZone: "Asia/Manila", hour: "2-digit", minute: "2-digit", hour12: true });
@@ -76,19 +68,9 @@ export function Insurance({ onViewFarm }: InsuranceProps) {
     }));
   }
 
-  const pendingReview = cases.filter((c) => c.stage === "compiled").length;
-  const summary = (Object.keys(STAGE_SUMMARY_LABEL) as PipelineStage[])
-    .map((stage) => ({ stage, count: cases.filter((c) => c.stage === stage).length }))
-    .filter((s) => s.count > 0);
-
   return (
     <div className="flex flex-1 flex-col gap-4 overflow-y-auto pr-1">
       <HazardBanner hazard={ACTIVE_HAZARD} />
-
-      <div className="flex shrink-0 items-center gap-2.5 rounded-[6px] border border-divider bg-card px-4 py-2.5 text-[12px] text-ink-soft">
-        <span className="font-mono text-[10px] font-bold tracking-[1px] text-text-success uppercase">Phase 2 · done</span>
-        Localized SMS risk alerts already went out 24 hours before landfall — this pipeline is the separate, post-disaster Notice of Loss step, filed only for farms with an active policy.
-      </div>
 
       <div className="flex flex-1 gap-4">
         {reviewCase && reviewFarm ? (
@@ -113,17 +95,6 @@ export function Insurance({ onViewFarm }: InsuranceProps) {
           onReviewCase={openReview}
           onViewFarm={onViewFarm}
         />
-      </div>
-
-      <div className="flex shrink-0 flex-wrap items-center gap-x-4 gap-y-1.5 rounded-[6px] border border-border bg-card px-5 py-3.5 shadow-[var(--shadow-sm)]">
-        <span className="text-[12.5px] text-ink-soft">
-          {pendingReview > 0 ? `${pendingReview} ready for your review —` : "No officer action needed —"}
-        </span>
-        {summary.map(({ stage, count }) => (
-          <span key={stage} className="font-mono text-[11.5px] font-bold text-ink">
-            {count} {STAGE_SUMMARY_LABEL[stage]}
-          </span>
-        ))}
       </div>
     </div>
   );

@@ -16,7 +16,7 @@ export function WeatherPanel() {
   const Icon = ICONS[reading.icon];
 
   return (
-    <div className="panel-corners flex flex-1 flex-col rounded-[6px] border border-border bg-card p-5 shadow-[var(--shadow-sm)]">
+    <div className="panel-corners flex w-[220px] shrink-0 flex-col rounded-[6px] border border-border bg-card p-4 shadow-[var(--shadow-sm)]">
       <div className="shrink-0">
         <span className="font-mono text-[10px] font-bold tracking-[1.2px] text-ink-soft uppercase">
           PAGASA · weather monitoring

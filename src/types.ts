@@ -83,6 +83,20 @@ export interface InsurancePolicy {
   registeredDateLabel?: string;
 }
 
+export type ReportStatus = "submitted" | "processing";
+
+export interface ReportHistoryEntry {
+  id: string;
+  clusterId: string;
+  hazardName: string;
+  recipient: string;
+  status: ReportStatus;
+  /** Assigned once the LGU actually receives it — absent while "processing". */
+  referenceNo?: string;
+  receivedLabel: string;
+  sections: DamageReportSection[];
+}
+
 export interface DamageReportSection {
   id: string;
   title: string;

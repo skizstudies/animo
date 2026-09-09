@@ -73,7 +73,7 @@ export function Topbar({ activePage, theme, onToggleTheme }: TopbarProps) {
   }, [notifOpen]);
 
   return (
-    <div className="mb-[18px] flex shrink-0 items-center gap-7">
+    <div className="no-print mb-[18px] flex shrink-0 items-center gap-7">
       <div className="shrink-0">
         <div className="flex items-center gap-3">
           <h1 className="text-[21px] font-extrabold tracking-tight text-ink">

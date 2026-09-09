@@ -2,7 +2,7 @@ import { MoonIcon, SunIcon } from "../components/layout/icons";
 import { usePhtClock } from "../hooks/usePhtClock";
 import { useTheme } from "../hooks/useTheme";
 import { GisOverviewPlaceholder } from "./components/GisOverviewPlaceholder";
-import { ReceivedReport } from "./components/ReceivedReport";
+import { LguReportsPanel } from "./components/LguReportsPanel";
 import { WeatherPanel } from "./components/WeatherPanel";
 
 export function LguApp() {
@@ -51,7 +51,7 @@ export function LguApp() {
           <GisOverviewPlaceholder />
         </div>
 
-        <ReceivedReport />
+        <LguReportsPanel />
       </div>
     </div>
   );

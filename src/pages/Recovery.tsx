@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { HazardBanner } from "../components/insurance/HazardBanner";
 import { CheckCircleIcon, SendIcon } from "../components/layout/icons";
+import { ReportFinalReview } from "../components/recovery/ReportFinalReview";
 import { ReportSectionList } from "../components/recovery/ReportSectionList";
 import { ReportSectionModal } from "../components/recovery/ReportSectionModal";
 import { ACTIVE_HAZARD } from "../data/mockInsurance";
@@ -35,6 +36,7 @@ export function Recovery() {
   const [touchedAt, setTouchedAt] = useState<Record<string, TimeInfo>>({});
   const [processingId, setProcessingId] = useState<string | null>(null);
   const [openSectionId, setOpenSectionId] = useState<string | null>(null);
+  const [reviewing, setReviewing] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [submittedAt, setSubmittedAt] = useState<Date | null>(null);
   const referenceNo = useMemo(() => makeReferenceNo(), []);
@@ -73,6 +75,23 @@ export function Recovery() {
   function handleSubmit() {
     setSubmittedAt(new Date());
     setSubmitted(true);
+    setReviewing(false);
+  }
+
+  if (reviewing && !submitted) {
+    return (
+      <div className="flex flex-1 flex-col gap-4 overflow-y-auto pr-1">
+        <HazardBanner hazard={ACTIVE_HAZARD} />
+        <ReportFinalReview
+          sections={DAMAGE_REPORT_SECTIONS}
+          viewState={viewState}
+          recipient={DAMAGE_REPORT_RECIPIENT}
+          clusterId={ACTIVE_HAZARD.clusterId}
+          onBack={() => setReviewing(false)}
+          onSubmit={handleSubmit}
+        />
+      </div>
+    );
   }
 
   return (
@@ -119,11 +138,11 @@ export function Recovery() {
             <button
               type="button"
               disabled={!allResolved}
-              onClick={handleSubmit}
+              onClick={() => setReviewing(true)}
               className="flex items-center gap-2 rounded-[4px] bg-sidebar px-4 py-2.5 text-[12.5px] font-bold text-white transition-opacity hover:bg-sidebar-deep disabled:cursor-not-allowed disabled:opacity-40"
             >
               <SendIcon className="h-3.5 w-3.5" />
-              Submit to the LGU
+              {allResolved ? "Review final report" : "Submit to the LGU"}
             </button>
           </div>
         )}
