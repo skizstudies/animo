@@ -13,9 +13,9 @@ export const ACTIVE_HAZARD: HazardEvent = {
 };
 
 export const AFFECTED_FARMS: AffectedFarm[] = [
-  { id: "f1", farmId: "farm-1", farmerName: "Mang Tomas Reyes", crop: "Rice", areaHa: 2.4, estimatedLossPct: 62 },
-  { id: "f2", farmId: "farm-2", farmerName: "Aling Puring Santos", crop: "Rice", areaHa: 1.8, estimatedLossPct: 45 },
-  { id: "f3", farmId: "farm-3", farmerName: "Ernesto Villar", crop: "Corn", areaHa: 3.1, estimatedLossPct: 38 },
+  { id: "f1", farmId: "farm-1", farmerName: "Mang Tomas Reyes", crop: "Rice", areaHa: 2.4, estimatedLossPct: 62, ndviMean: 0.784, ndviBaseline: 0.55, evidenceImagePath: "/evidence/farm-1.png" },
+  { id: "f2", farmId: "farm-2", farmerName: "Aling Puring Santos", crop: "Rice", areaHa: 1.8, estimatedLossPct: 45, ndviMean: 0.712, ndviBaseline: 0.55, evidenceImagePath: "/evidence/farm-2.png" },
+  { id: "f3", farmId: "farm-3", farmerName: "Ernesto Villar", crop: "Corn", areaHa: 3.1, estimatedLossPct: 38, ndviMean: 0.67, ndviBaseline: 0.55, evidenceImagePath: "/evidence/farm-3.png" },
   { id: "f4", farmId: "farm-4", farmerName: "Ligaya Cruz", crop: "Rice", areaHa: 1.2, estimatedLossPct: 71 },
   { id: "f5", farmId: "farm-5", farmerName: "Rodel Manalo", crop: "Vegetables", areaHa: 0.9, estimatedLossPct: 25 },
 ];

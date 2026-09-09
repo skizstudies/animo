@@ -25,6 +25,11 @@ export interface AffectedFarm {
   crop: string;
   areaHa: number;
   estimatedLossPct: number;
+  /** Real Sentinel-2 evidence from the GIS workstream — only populated for
+   * farms with a live satellite reading, not every mock entry. */
+  ndviMean?: number;
+  ndviBaseline?: number;
+  evidenceImagePath?: string;
 }
 
 export interface Farm {
@@ -34,6 +39,10 @@ export interface Farm {
   crop: string;
   areaHa: number;
   status: "active" | "inactive";
+  /** Real pin coordinates from the GIS workstream — only populated for
+   * mapped parcels, not every mock entry. */
+  lat?: number;
+  lng?: number;
 }
 
 export type PipelineStage = "messaged" | "replied" | "consent" | "compiled" | "sent";

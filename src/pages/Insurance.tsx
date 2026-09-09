@@ -94,7 +94,7 @@ export function Insurance({ onViewFarm }: InsuranceProps) {
         ) : selectedCase ? (
           <ConversationThread insuranceCase={selectedCase} onBack={closePanels} />
         ) : (
-          <SatelliteCompare hazard={ACTIVE_HAZARD} />
+          <SatelliteCompare />
         )}
         <CasePipelineList
           cases={cases}

@@ -1,9 +1,9 @@
 import type { Farm } from "../types";
 
 export const FARMS: Farm[] = [
-  { id: "farm-1", farmerName: "Mang Tomas Reyes", barangay: "Alangilan", crop: "Rice", areaHa: 2.4, status: "active" },
-  { id: "farm-2", farmerName: "Aling Puring Santos", barangay: "Alangilan", crop: "Rice", areaHa: 1.8, status: "active" },
-  { id: "farm-3", farmerName: "Ernesto Villar", barangay: "Alangilan", crop: "Corn", areaHa: 3.1, status: "active" },
+  { id: "farm-1", farmerName: "Mang Tomas Reyes", barangay: "Alangilan", crop: "Rice", areaHa: 2.4, status: "active", lat: 13.83142, lng: 121.21486 },
+  { id: "farm-2", farmerName: "Aling Puring Santos", barangay: "Alangilan", crop: "Rice", areaHa: 1.8, status: "active", lat: 13.82566, lng: 121.21188 },
+  { id: "farm-3", farmerName: "Ernesto Villar", barangay: "Alangilan", crop: "Corn", areaHa: 3.1, status: "active", lat: 13.8324, lng: 121.20884 },
   { id: "farm-4", farmerName: "Ligaya Cruz", barangay: "Balagtas", crop: "Rice", areaHa: 1.2, status: "active" },
   { id: "farm-5", farmerName: "Rodel Manalo", barangay: "Balagtas", crop: "Vegetables", areaHa: 0.9, status: "active" },
   { id: "farm-6", farmerName: "Bayani Ocampo", barangay: "Dela Paz", crop: "Rice", areaHa: 2.0, status: "active" },

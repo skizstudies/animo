@@ -101,19 +101,33 @@ export function DocumentViewerModal({ docId, insuranceCase, farm, hazard, barang
 
           {docId === "evidence" && (
             <div>
-              <div className="grid grid-cols-8 gap-1 rounded-[4px] bg-bg p-2">
-                {Array.from({ length: 32 }).map((_, i) => (
-                  <div key={i} className={`aspect-square rounded-[2px] ${i % 5 === 0 || i % 7 === 0 ? "bg-warning/70" : "bg-success/55"}`} />
-                ))}
+              <div className="grid grid-cols-2 gap-2">
+                <div>
+                  <img
+                    src="/insurance/plot1-before.png"
+                    alt="ESRI World Imagery over Namunga, Rosario, plot 1 (before)"
+                    className="aspect-[4/3] w-full rounded-[4px] object-cover"
+                  />
+                  <span className="mt-1 block text-center font-mono text-[10px] text-ink-soft uppercase">Before</span>
+                </div>
+                <div>
+                  <img
+                    src="/insurance/plot1-after.png"
+                    alt="ESRI World Imagery over Namunga, Rosario, plot 1 (after)"
+                    className="aspect-[4/3] w-full rounded-[4px] object-cover"
+                  />
+                  <span className="mt-1 block text-center font-mono text-[10px] text-ink-soft uppercase">After</span>
+                </div>
               </div>
               <div className="mt-3 rounded-[6px] border border-divider bg-bg px-4">
-                <Field label="Source" value="Sentinel-2, 10m resolution" />
-                <Field label="Pre-event pass" value={hazard.preImageDate} />
-                <Field label="Post-event pass" value={hazard.postImageDate} />
-                <Field label="Cluster" value={hazard.clusterId} />
+                <Field label="Basemap" value="ESRI World Imagery" />
+                <Field label="Plot" value="Namunga, Rosario — plot 1" />
+                <Field label="NDVI (before)" value="01 Apr 2026 · 0.56" />
+                <Field label="NDVI (after)" value="22 Aug 2026 · 0.68" />
               </div>
               <p className="mt-3 text-[11.5px] text-ink-soft">
-                Full interactive before/after comparison is available on the hazard's Satellite Evidence panel.
+                ESRI provides the sharp display photos; Sentinel Hub NDVI stays the analytical source behind the
+                before/after numbers.
               </p>
             </div>
           )}
