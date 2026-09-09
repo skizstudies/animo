@@ -1,4 +1,5 @@
 import type { ComponentType, ReactNode, SVGProps } from "react";
+import { ChevronRightIcon } from "../layout/icons";
 
 type Accent = "success" | "warning" | "tech" | "neutral";
 
@@ -16,15 +17,21 @@ interface StatTileProps {
   accent?: Accent;
   caption?: ReactNode;
   wide?: boolean;
+  onClick?: () => void;
 }
 
 /** One shared tile treatment for every Overview metric — big numeral,
  * icon doing the labeling work, one short caption line at most. Meant to
- * read at a glance from across a room during a fast, phase-by-phase demo. */
-export function StatTile({ icon: Icon, value, label, accent = "success", caption, wide }: StatTileProps) {
+ * read at a glance from across a room during a fast, phase-by-phase demo.
+ * Anything with more to say than fits gets an onClick instead of cramming
+ * it into the caption. */
+export function StatTile({ icon: Icon, value, label, accent = "success", caption, wide, onClick }: StatTileProps) {
+  const Tag = onClick ? "button" : "div";
   return (
-    <div
-      className={`panel-corners flex h-full flex-col rounded-[6px] border border-border bg-card p-6 shadow-[var(--shadow-sm)] ${wide ? "sm:col-span-2" : ""}`}
+    <Tag
+      type={onClick ? "button" : undefined}
+      onClick={onClick}
+      className={`panel-corners flex h-full flex-col rounded-[6px] border border-border bg-card p-6 text-left shadow-[var(--shadow-sm)] ${wide ? "sm:col-span-2" : ""} ${onClick ? "transition-colors hover:border-success/40 hover:bg-success/6" : ""}`}
     >
       <div className="flex flex-1 flex-col justify-center gap-4">
         <div className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-[10px] ${ACCENT_CLASSES[accent]}`}>
@@ -35,7 +42,12 @@ export function StatTile({ icon: Icon, value, label, accent = "success", caption
           <div className="mt-2 font-mono text-[13px] font-bold tracking-[0.8px] text-ink-soft uppercase">{label}</div>
         </div>
       </div>
-      {caption && <div className="mt-4 border-t border-divider pt-4 text-[13.5px] text-ink-soft">{caption}</div>}
-    </div>
+      {caption && (
+        <div className="mt-4 flex items-center justify-between gap-2 border-t border-divider pt-4 text-[13.5px] text-ink-soft">
+          <span className="truncate">{caption}</span>
+          {onClick && <ChevronRightIcon className="h-4 w-4 shrink-0" />}
+        </div>
+      )}
+    </Tag>
   );
 }

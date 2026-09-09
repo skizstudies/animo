@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { InsuranceIcon, PrinterIcon, RecoveryIcon, SendIcon, ShieldIcon, UsersIcon } from "../components/layout/icons";
+import { StatBreakdownModal } from "../components/overview/StatBreakdownModal";
 import { StatTile } from "../components/overview/StatTile";
 import { FARMS } from "../data/mockFarms";
 import { INSURANCE_CASES } from "../data/mockInsurance";
@@ -8,6 +10,7 @@ import { STAGE_LABEL } from "../data/pipelineStages";
 import type { PipelineStage } from "../types";
 
 export function Overview() {
+  const [showNolBreakdown, setShowNolBreakdown] = useState(false);
   const activeFarmers = FARMS.filter((f) => f.status === "active").length;
 
   const insuredCount = POLICIES.filter((p) => p.status === "active").length;
@@ -71,17 +74,18 @@ export function Overview() {
           value={pendingReview}
           label="Notice of Loss — awaiting review"
           accent="warning"
-          caption={
-            <span className="flex flex-col gap-0.5 font-mono text-[12px]">
-              {stageCounts.map(({ stage, count }) => (
-                <span key={stage}>
-                  {count} {STAGE_LABEL[stage].toLowerCase()}
-                </span>
-              ))}
-            </span>
-          }
+          caption={`${nolCases.length} cases in the pipeline — tap for the breakdown`}
+          onClick={() => setShowNolBreakdown(true)}
         />
       </div>
+
+      {showNolBreakdown && (
+        <StatBreakdownModal
+          title="Notice of Loss pipeline"
+          rows={stageCounts.map(({ stage, count }) => ({ label: STAGE_LABEL[stage], count }))}
+          onClose={() => setShowNolBreakdown(false)}
+        />
+      )}
     </div>
   );
 }
