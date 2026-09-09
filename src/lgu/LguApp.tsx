@@ -1,7 +1,7 @@
 import { MoonIcon, SunIcon } from "../components/layout/icons";
 import { usePhtClock } from "../hooks/usePhtClock";
 import { useTheme } from "../hooks/useTheme";
-import { GisOverviewPlaceholder } from "./components/GisOverviewPlaceholder";
+import { LguFarmMap } from "./components/LguFarmMap";
 import { LguReportsPanel } from "./components/LguReportsPanel";
 import { WeatherPanel } from "./components/WeatherPanel";
 
@@ -46,9 +46,9 @@ export function LguApp() {
       </header>
 
       <div className="flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto pr-1">
-        <div className="flex min-h-[300px] shrink-0 gap-4">
+        <div className="flex min-h-[480px] shrink-0 gap-4">
           <WeatherPanel />
-          <GisOverviewPlaceholder />
+          <LguFarmMap />
         </div>
 
         <LguReportsPanel />

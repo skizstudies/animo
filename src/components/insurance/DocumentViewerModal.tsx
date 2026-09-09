@@ -102,21 +102,21 @@ export function DocumentViewerModal({ docId, insuranceCase, farm, hazard, policy
             </div>
           )}
 
-          {docId === "evidence" && (
+          {docId === "evidence" && farm.evidence && (
             <div>
               <div className="grid grid-cols-2 gap-2">
                 <div>
                   <img
-                    src="/insurance/plot1-before.png"
-                    alt="ESRI World Imagery over Namunga, Rosario, plot 1 (before)"
+                    src={farm.evidence.beforeImage}
+                    alt={`ESRI World Imagery over ${insuranceCase.farmerName}'s plot (before)`}
                     className="aspect-[4/3] w-full rounded-[4px] object-cover"
                   />
                   <span className="mt-1 block text-center font-mono text-[11.5px] text-ink-soft uppercase">Before</span>
                 </div>
                 <div>
                   <img
-                    src="/insurance/plot1-after.png"
-                    alt="ESRI World Imagery over Namunga, Rosario, plot 1 (after)"
+                    src={farm.evidence.afterImage}
+                    alt={`ESRI World Imagery over ${insuranceCase.farmerName}'s plot (after)`}
                     className="aspect-[4/3] w-full rounded-[4px] object-cover"
                   />
                   <span className="mt-1 block text-center font-mono text-[11.5px] text-ink-soft uppercase">After</span>
@@ -124,9 +124,9 @@ export function DocumentViewerModal({ docId, insuranceCase, farm, hazard, policy
               </div>
               <div className="mt-3 rounded-[6px] border border-divider bg-bg px-4">
                 <Field label="Basemap" value="ESRI World Imagery" />
-                <Field label="Plot" value="Namunga, Rosario — plot 1" />
-                <Field label="NDVI (before)" value="01 Apr 2026 · 0.56" />
-                <Field label="NDVI (after)" value="22 Aug 2026 · 0.68" />
+                <Field label="Plot" value={`${insuranceCase.farmerName}'s farm${barangay ? ` — Brgy. ${barangay}` : ""}`} />
+                <Field label="NDVI (before)" value={`${farm.evidence.beforeDateLabel} · ${farm.evidence.ndviBefore.toFixed(2)}`} />
+                <Field label="NDVI (after)" value={`${farm.evidence.afterDateLabel} · ${farm.evidence.ndviAfter.toFixed(2)}`} />
               </div>
               <p className="mt-3 text-[13px] text-ink-soft">
                 ESRI provides the sharp display photos; Sentinel Hub NDVI stays the analytical source behind the

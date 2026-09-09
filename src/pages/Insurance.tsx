@@ -29,6 +29,10 @@ export function Insurance({ onViewFarm }: InsuranceProps) {
   const [selectedCaseId, setSelectedCaseId] = useState<string | null>(null);
   const [reviewCaseId, setReviewCaseId] = useState<string | null>(null);
   const [approvals, setApprovals] = useState<Record<string, Approval>>({});
+  // Which farm's plot the satellite panel shows once no case is open —
+  // follows the last case the user viewed instead of always resetting to the
+  // flagship pilot farm, so "← Satellite evidence" lands on the right plot.
+  const [satelliteFarmId, setSatelliteFarmId] = useState<string>("farm-1");
 
   const cases = INSURANCE_CASES.filter((c) => getPolicy(c.farmId)?.status === "active").map((c) => {
     const approval = approvals[c.id];
@@ -45,11 +49,15 @@ export function Insurance({ onViewFarm }: InsuranceProps) {
   function openConversation(id: string) {
     setReviewCaseId(null);
     setSelectedCaseId(id);
+    const c = cases.find((c) => c.id === id);
+    if (c) setSatelliteFarmId(c.farmId);
   }
 
   function openReview(id: string) {
     setSelectedCaseId(null);
     setReviewCaseId(id);
+    const c = cases.find((c) => c.id === id);
+    if (c) setSatelliteFarmId(c.farmId);
   }
 
   function closePanels() {
@@ -85,7 +93,7 @@ export function Insurance({ onViewFarm }: InsuranceProps) {
         ) : selectedCase ? (
           <ConversationThread insuranceCase={selectedCase} policy={selectedPolicy} onBack={closePanels} />
         ) : (
-          <SatelliteCompare />
+          <SatelliteCompare farmId={satelliteFarmId} />
         )}
         <CasePipelineList
           cases={cases}

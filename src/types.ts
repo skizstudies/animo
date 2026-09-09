@@ -18,6 +18,19 @@ export interface HazardEvent {
   postImageDate: string;
 }
 
+export interface SatelliteEvidence {
+  /** ESRI World Imagery, real per-frame captures of this farm's plot —
+   * sharp, human-facing display photos. Not used for any analysis. */
+  beforeImage: string;
+  afterImage: string;
+  /** Real Sentinel Hub NDVI + capture dates — the analytical source of
+   * truth behind the before/after numbers. Never rendered as a photo. */
+  beforeDateLabel: string;
+  afterDateLabel: string;
+  ndviBefore: number;
+  ndviAfter: number;
+}
+
 export interface AffectedFarm {
   id: string;
   farmId: string;
@@ -25,11 +38,9 @@ export interface AffectedFarm {
   crop: string;
   areaHa: number;
   estimatedLossPct: number;
-  /** Real Sentinel-2 evidence from the GIS workstream — only populated for
-   * farms with a live satellite reading, not every mock entry. */
-  ndviMean?: number;
-  ndviBaseline?: number;
-  evidenceImagePath?: string;
+  /** Real GIS-workstream evidence — only populated for farms with a live
+   * satellite reading, not every mock entry. */
+  evidence?: SatelliteEvidence;
 }
 
 export interface Farm {
