@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import type { AffectedFarm, HazardEvent, InsuranceCase } from "../../types";
+import type { AffectedFarm, HazardEvent, InsurancePolicy, InsuranceCase } from "../../types";
 import { CloseIcon } from "../layout/icons";
 
 export type GeneratedDocId = "notice" | "summary" | "evidence";
@@ -9,6 +9,7 @@ interface DocumentViewerModalProps {
   insuranceCase: InsuranceCase;
   farm: AffectedFarm;
   hazard: HazardEvent;
+  policy?: InsurancePolicy;
   barangay?: string;
   onClose: () => void;
 }
@@ -22,7 +23,7 @@ function Field({ label, value }: { label: string; value: string }) {
   );
 }
 
-export function DocumentViewerModal({ docId, insuranceCase, farm, hazard, barangay, onClose }: DocumentViewerModalProps) {
+export function DocumentViewerModal({ docId, insuranceCase, farm, hazard, policy, barangay, onClose }: DocumentViewerModalProps) {
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
       if (e.key === "Escape") onClose();
@@ -70,6 +71,8 @@ export function DocumentViewerModal({ docId, insuranceCase, farm, hazard, barang
                 Philippine Crop Insurance Corporation
               </p>
               <div className="rounded-[6px] border border-divider bg-bg px-4">
+                {policy?.policyNo && <Field label="Policy no." value={policy.policyNo} />}
+                {policy?.registeredDateLabel && <Field label="Policy active since" value={policy.registeredDateLabel} />}
                 <Field label="Claimant" value={insuranceCase.farmerName} />
                 <Field label="Farm location" value={barangay ? `Brgy. ${barangay}` : "—"} />
                 <Field label="Crop insured" value={farm.crop} />

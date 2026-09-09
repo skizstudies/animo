@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FARMS } from "../../data/mockFarms";
-import type { AffectedFarm, HazardEvent, InsuranceCase } from "../../types";
+import type { AffectedFarm, HazardEvent, InsurancePolicy, InsuranceCase } from "../../types";
 import { CheckCircleIcon, DocumentIcon, SendIcon } from "../layout/icons";
 import { DocumentViewerModal, type GeneratedDocId } from "./DocumentViewerModal";
 import { ProcessingLog } from "./ProcessingLog";
@@ -9,24 +9,27 @@ interface DocumentReviewPanelProps {
   insuranceCase: InsuranceCase;
   farm: AffectedFarm;
   hazard: HazardEvent;
+  policy?: InsurancePolicy;
   onBack: () => void;
   onApprove: (caseId: string) => void;
 }
 
 const GENERATED_DOCS: { id: GeneratedDocId; label: string }[] = [
-  { id: "notice", label: "PCIC Notice of Loss — auto-filled from farm records" },
+  { id: "notice", label: "PCIC Notice of Loss — filed against the existing policy" },
   { id: "summary", label: "Damage Assessment Summary — Sentinel-2 change detection" },
   { id: "evidence", label: "Photo & Satellite Evidence Package" },
 ];
 
-export function DocumentReviewPanel({ insuranceCase, farm, hazard, onBack, onApprove }: DocumentReviewPanelProps) {
+export function DocumentReviewPanel({ insuranceCase, farm, hazard, policy, onBack, onApprove }: DocumentReviewPanelProps) {
   const [verified, setVerified] = useState(false);
   const [viewingDocId, setViewingDocId] = useState<GeneratedDocId | null>(null);
   const barangay = FARMS.find((f) => f.id === farm.farmId)?.barangay;
   const sent = insuranceCase.stage === "sent";
   const sentLog = insuranceCase.log.find((l) => l.stage === "sent");
 
-  const narrative = `${insuranceCase.farmerName}'s ${farm.crop.toLowerCase()} farm (${farm.areaHa.toFixed(1)} ha${barangay ? `, Brgy. ${barangay}` : ""}) shows an estimated ${farm.estimatedLossPct}% loss from ${hazard.name}, confirmed via Sentinel-2 passes on ${hazard.preImageDate} and ${hazard.postImageDate}.`;
+  const narrative = `${insuranceCase.farmerName}'s ${farm.crop.toLowerCase()} farm (${farm.areaHa.toFixed(1)} ha${barangay ? `, Brgy. ${barangay}` : ""}) shows an estimated ${farm.estimatedLossPct}% loss from ${hazard.name}, confirmed via Sentinel-2 passes on ${hazard.preImageDate} and ${hazard.postImageDate}.${
+    policy?.policyNo ? ` Filed as a Notice of Loss against Policy No. ${policy.policyNo}, active since ${policy.registeredDateLabel}.` : ""
+  }`;
 
   return (
     <div className="panel-corners flex flex-1 flex-col rounded-[6px] border border-border bg-card p-5 shadow-[var(--shadow-sm)]">
@@ -117,6 +120,7 @@ export function DocumentReviewPanel({ insuranceCase, farm, hazard, onBack, onApp
           insuranceCase={insuranceCase}
           farm={farm}
           hazard={hazard}
+          policy={policy}
           barangay={barangay}
           onClose={() => setViewingDocId(null)}
         />

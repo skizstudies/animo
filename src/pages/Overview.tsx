@@ -12,7 +12,7 @@ export function Overview({ onNavigate }: OverviewProps) {
       <LauncherTile
         icon={InsuranceIcon}
         label="Insurance"
-        description="Satellite evidence, gathered and drafted into a PCIC-ready report."
+        description="Notice of Loss, filed against each farmer's active PCIC policy with satellite evidence."
         cta="Open Insurance"
         accent="warning"
         onOpen={() => onNavigate("insurance")}

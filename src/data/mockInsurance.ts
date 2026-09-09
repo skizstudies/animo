@@ -32,9 +32,9 @@ export const INSURANCE_CASES: InsuranceCase[] = [
     messages: [
       { id: "m1", from: "agent", text: "Kumusta po kayo, Mang Tomas? Nakita namin sa satellite na tumama ang bagyo sa lugar niyo.", timeLabel: "10:14 AM" },
       { id: "m2", from: "farmer", text: "Ayos lang po kami, pero nasira po yung bukid namin.", timeLabel: "10:22 AM" },
-      { id: "m3", from: "agent", text: "Pasensya na po. Gusto niyo po ba na i-file namin ang insurance claim niyo sa PCIC? Kami na po ang bahala sa mga papeles.", timeLabel: "10:23 AM" },
+      { id: "m3", from: "agent", text: "Pasensya na po. May aktibo po kayong PCIC policy mula pa noong Hunyo (Policy No. PCIC-2026-330142) — gusto niyo po ba na mag-file kami ng Notice of Loss gamit ito? Kami na po ang bahala sa mga papeles.", timeLabel: "10:23 AM" },
       { id: "m4", from: "farmer", text: "Opo, sige po.", timeLabel: "10:31 AM" },
-      { id: "m5", from: "agent", text: "Salamat po! Nakumpleto na po namin ang mga dokumento at satellite evidence ng bukid niyo. Puwede na po kayong pumunta sa amin para i-verify bago namin ipadala sa PCIC.", timeLabel: "11:02 AM" },
+      { id: "m5", from: "agent", text: "Salamat po! Nakumpleto na po namin ang Notice of Loss at satellite evidence ng bukid niyo. Puwede na po kayong pumunta sa amin para i-verify bago namin ipadala sa PCIC.", timeLabel: "11:02 AM" },
     ],
     log: [
       { stage: "messaged", dateLabel: "Sep 06, 2026", timeLabel: "10:14 AM" },
@@ -53,9 +53,9 @@ export const INSURANCE_CASES: InsuranceCase[] = [
     messages: [
       { id: "m1", from: "agent", text: "Kumusta po kayo, Aling Ligaya? Malubha ang tama ng bagyo sa Balagtas.", timeLabel: "09:40 AM" },
       { id: "m2", from: "farmer", text: "Grabe po talaga, halos lahat po ng palay namin nasira.", timeLabel: "09:52 AM" },
-      { id: "m3", from: "agent", text: "Pasensya po talaga. Papayag po ba kayo na i-file namin agad ang claim niyo sa PCIC?", timeLabel: "09:53 AM" },
+      { id: "m3", from: "agent", text: "Pasensya po talaga. Kumpirmado po kayong may aktibong PCIC policy mula Hunyo (Policy No. PCIC-2026-330184) — papayag po ba kayo na i-file namin agad ang Notice of Loss gamit ito?", timeLabel: "09:53 AM" },
       { id: "m4", from: "farmer", text: "Opo, kailangan na namin agad.", timeLabel: "09:58 AM" },
-      { id: "m5", from: "agent", text: "Naipadala na po ang inyong claim sa PCIC kasama ang satellite evidence. Aabisuhan namin kayo pag may update.", timeLabel: "10:20 AM" },
+      { id: "m5", from: "agent", text: "Naipadala na po ang inyong Notice of Loss sa PCIC kasama ang satellite evidence. Aabisuhan namin kayo pag may update.", timeLabel: "10:20 AM" },
     ],
     log: [
       { stage: "messaged", dateLabel: "Sep 06, 2026", timeLabel: "09:40 AM" },
@@ -74,7 +74,7 @@ export const INSURANCE_CASES: InsuranceCase[] = [
     messages: [
       { id: "m1", from: "agent", text: "Kumusta po kayo, Aling Puring? Kumusta ang bukid niyo matapos ang bagyo?", timeLabel: "10:05 AM" },
       { id: "m2", from: "farmer", text: "Medyo nasira po pero hindi masyadong grabe.", timeLabel: "10:18 AM" },
-      { id: "m3", from: "agent", text: "Salamat sa update. Gusto niyo po ba na i-file namin ang insurance claim niyo?", timeLabel: "10:19 AM" },
+      { id: "m3", from: "agent", text: "Salamat sa update. May aktibo po kayong PCIC policy mula Hunyo (Policy No. PCIC-2026-330158) — gusto niyo po ba na mag-file kami ng Notice of Loss gamit ito?", timeLabel: "10:19 AM" },
       { id: "m4", from: "farmer", text: "Opo, pwede po.", timeLabel: "10:27 AM" },
     ],
     log: [

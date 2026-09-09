@@ -66,6 +66,23 @@ export interface InsuranceCase {
   referenceNo?: string;
 }
 
+export type PolicyStatus = "active" | "opted-out";
+
+export interface InsurancePolicy {
+  id: string;
+  farmId: string;
+  status: PolicyStatus;
+  /** Set once, at registration — the moment the parcel was mapped and the
+   * agent auto-drafted and submitted the Application for Crop Insurance
+   * (ACI), months before any storm. Present only when status is "active";
+   * an opted-out farmer never had one drafted. */
+  policyNo?: string;
+  crop?: string;
+  plantingDateLabel?: string;
+  baselineImageDateLabel?: string;
+  registeredDateLabel?: string;
+}
+
 export interface DamageReportSection {
   id: string;
   title: string;

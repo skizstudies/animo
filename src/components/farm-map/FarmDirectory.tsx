@@ -1,12 +1,14 @@
-import type { Farm } from "../../types";
+import type { Farm, InsurancePolicy } from "../../types";
+import { ShieldIcon } from "../layout/icons";
 
 interface FarmDirectoryProps {
   farms: Farm[];
+  policies: InsurancePolicy[];
   selectedId: string | null;
   onSelect: (farmId: string) => void;
 }
 
-export function FarmDirectory({ farms, selectedId, onSelect }: FarmDirectoryProps) {
+export function FarmDirectory({ farms, policies, selectedId, onSelect }: FarmDirectoryProps) {
   return (
     <div className="panel-corners flex min-h-0 flex-1 flex-col rounded-[6px] border border-border bg-card p-5 shadow-[var(--shadow-sm)]">
       <div className="mb-3 shrink-0">
@@ -18,6 +20,7 @@ export function FarmDirectory({ farms, selectedId, onSelect }: FarmDirectoryProp
       <div className="flex min-h-0 flex-1 flex-col gap-1.5 overflow-y-auto pr-1">
         {farms.map((farm) => {
           const active = farm.id === selectedId;
+          const insured = policies.find((p) => p.farmId === farm.id)?.status === "active";
           return (
             <button
               key={farm.id}
@@ -34,6 +37,12 @@ export function FarmDirectory({ farms, selectedId, onSelect }: FarmDirectoryProp
                   {farm.barangay} · {farm.crop} · {farm.areaHa.toFixed(1)} ha
                 </div>
               </div>
+              <span
+                title={insured ? "Insured" : "Not insured"}
+                className={`shrink-0 ${insured ? "text-text-success" : "text-dot-muted"}`}
+              >
+                <ShieldIcon className="h-3.5 w-3.5" />
+              </span>
             </button>
           );
         })}

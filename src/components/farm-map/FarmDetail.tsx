@@ -1,12 +1,19 @@
-import type { AffectedFarm, Farm } from "../../types";
+import { useState } from "react";
+import type { AffectedFarm, Farm, InsurancePolicy } from "../../types";
+import { ShieldIcon, ShieldOffIcon } from "../layout/icons";
+import { PolicyViewerModal } from "./PolicyViewerModal";
 
 interface FarmDetailProps {
   farm: Farm | null;
+  policy?: InsurancePolicy;
   insuranceRecord?: AffectedFarm;
   inRecoveryReport?: boolean;
 }
 
-export function FarmDetail({ farm, insuranceRecord, inRecoveryReport }: FarmDetailProps) {
+export function FarmDetail({ farm, policy, insuranceRecord, inRecoveryReport }: FarmDetailProps) {
+  const [policyOpen, setPolicyOpen] = useState(false);
+  const insured = policy?.status === "active";
+
   if (!farm) {
     return (
       <div className="flex shrink-0 items-center justify-center rounded-[6px] border border-border bg-card px-5 py-5 text-[12.5px] text-ink-soft shadow-[var(--shadow-sm)]">
@@ -33,9 +40,26 @@ export function FarmDetail({ farm, insuranceRecord, inRecoveryReport }: FarmDeta
         </p>
       </div>
 
+      {policy &&
+        (insured ? (
+          <button
+            type="button"
+            onClick={() => setPolicyOpen(true)}
+            className="flex items-center gap-1.5 rounded-[20px] bg-success/12 px-3 py-1.5 font-mono text-[11px] font-bold text-text-success hover:bg-success/20"
+          >
+            <ShieldIcon className="h-3.5 w-3.5" />
+            Insured{policy.policyNo ? ` · #${policy.policyNo.slice(-6)}` : ""}
+          </button>
+        ) : (
+          <span className="flex items-center gap-1.5 rounded-[20px] bg-hover px-3 py-1.5 font-mono text-[11px] font-bold text-ink-soft">
+            <ShieldOffIcon className="h-3.5 w-3.5" />
+            Not insured
+          </span>
+        ))}
+
       {insuranceRecord && (
         <span className="rounded-[20px] bg-warning/14 px-3 py-1.5 font-mono text-[11px] font-bold text-text-warn">
-          Insurance: {insuranceRecord.estimatedLossPct}% est. loss
+          Notice of Loss: {insuranceRecord.estimatedLossPct}% est. loss
         </span>
       )}
       {inRecoveryReport && (
@@ -43,9 +67,11 @@ export function FarmDetail({ farm, insuranceRecord, inRecoveryReport }: FarmDeta
           Recovery: included in the Road to Recovery report
         </span>
       )}
-      {!insuranceRecord && !inRecoveryReport && (
+      {!policy && !insuranceRecord && !inRecoveryReport && (
         <span className="font-mono text-[11px] text-ink-soft">No open Insurance or Recovery activity.</span>
       )}
+
+      {policyOpen && insured && <PolicyViewerModal farm={farm} policy={policy} onClose={() => setPolicyOpen(false)} />}
     </div>
   );
 }

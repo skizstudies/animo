@@ -1,13 +1,14 @@
-import type { InsuranceCase } from "../../types";
+import type { InsuranceCase, InsurancePolicy } from "../../types";
 import { CheckCircleIcon } from "../layout/icons";
 import { ProcessingLog } from "./ProcessingLog";
 
 interface ConversationThreadProps {
   insuranceCase: InsuranceCase;
+  policy?: InsurancePolicy;
   onBack: () => void;
 }
 
-export function ConversationThread({ insuranceCase, onBack }: ConversationThreadProps) {
+export function ConversationThread({ insuranceCase, policy, onBack }: ConversationThreadProps) {
   return (
     <div className="panel-corners flex flex-1 flex-col rounded-[6px] border border-border bg-card p-5 shadow-[var(--shadow-sm)]">
       <div className="mb-4 flex shrink-0 items-start justify-between gap-3">
@@ -16,6 +17,11 @@ export function ConversationThread({ insuranceCase, onBack }: ConversationThread
             Agent conversation · simulated SMS
           </span>
           <h3 className="mt-0.5 text-[15px] font-extrabold text-ink">{insuranceCase.farmerName}</h3>
+          {policy?.policyNo && (
+            <p className="mt-0.5 font-mono text-[10.5px] text-ink-soft">
+              Policy #{policy.policyNo} · active since {policy.registeredDateLabel}
+            </p>
+          )}
         </div>
         <button
           type="button"
