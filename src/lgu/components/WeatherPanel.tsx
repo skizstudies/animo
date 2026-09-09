@@ -18,10 +18,10 @@ export function WeatherPanel() {
   return (
     <div className="panel-corners flex w-[220px] shrink-0 flex-col rounded-[6px] border border-border bg-card p-4 shadow-[var(--shadow-sm)]">
       <div className="shrink-0">
-        <span className="font-mono text-[10px] font-bold tracking-[1.2px] text-ink-soft uppercase">
+        <span className="font-mono text-[11.5px] font-bold tracking-[1.2px] text-ink-soft uppercase">
           PAGASA · weather monitoring
         </span>
-        <h3 className="mt-0.5 text-[15px] font-extrabold text-ink">Barangay Alangilan</h3>
+        <h3 className="mt-0.5 text-[17px] font-extrabold text-ink">Barangay Alangilan</h3>
       </div>
 
       <div className="flex flex-1 flex-col items-center justify-center gap-3">
@@ -29,8 +29,8 @@ export function WeatherPanel() {
           <Icon className="h-7 w-7" />
         </div>
         <div className="text-center">
-          <div className="text-[28px] font-extrabold text-ink">{reading.value}</div>
-          <div className="font-mono text-[10.5px] font-bold tracking-[0.7px] text-ink-soft uppercase">
+          <div className="text-[32px] font-extrabold text-ink">{reading.value}</div>
+          <div className="font-mono text-[12px] font-bold tracking-[0.7px] text-ink-soft uppercase">
             {reading.label}
           </div>
         </div>
@@ -47,7 +47,7 @@ export function WeatherPanel() {
         </div>
       </div>
 
-      <div className="shrink-0 text-center font-mono text-[10.5px] text-ink-soft">{WEATHER_SOURCE_UPDATED}</div>
+      <div className="shrink-0 text-center font-mono text-[12px] text-ink-soft">{WEATHER_SOURCE_UPDATED}</div>
     </div>
   );
 }

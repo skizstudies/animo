@@ -25,25 +25,25 @@ export function Overview() {
   return (
     <div id="print-area" className="flex flex-1 flex-col gap-4 overflow-y-auto pr-1">
       <div className="panel-corners flex shrink-0 flex-wrap items-center gap-4 rounded-[6px] border border-border bg-card px-5 py-4 shadow-[var(--shadow-sm)]">
-        <div className="h-11 w-11 shrink-0 overflow-hidden rounded-[10px] bg-sidebar">
+        <div className="h-14 w-14 shrink-0 overflow-hidden rounded-[10px] bg-sidebar">
           <img src="/animo-logo.png" alt="ANIMO" className="h-full w-full object-contain" />
         </div>
         <div className="min-w-0 flex-1">
-          <h1 className="text-[16px] font-extrabold text-ink">ANIMO</h1>
-          <p className="text-[12.5px] text-ink-soft">Agentic AI orchestrating PCIC insurance and LGU disaster reporting for farming cooperatives.</p>
+          <h1 className="text-[18.5px] font-extrabold text-ink">ANIMO</h1>
+          <p className="text-[14.5px] text-ink-soft">Agentic AI orchestrating PCIC insurance and LGU disaster reporting for farming cooperatives.</p>
         </div>
         <div className="flex shrink-0 items-center gap-2">
-          <span className="flex items-center gap-1.5 rounded-[20px] bg-warning/14 px-3 py-1.5 font-mono text-[10.5px] font-bold text-text-warn">
+          <span className="flex items-center gap-1.5 rounded-[20px] bg-warning/14 px-3 py-1.5 font-mono text-[12px] font-bold text-text-warn">
             <InsuranceIcon className="h-3.5 w-3.5" /> Insurance
           </span>
-          <span className="flex items-center gap-1.5 rounded-[20px] bg-success/12 px-3 py-1.5 font-mono text-[10.5px] font-bold text-text-success">
+          <span className="flex items-center gap-1.5 rounded-[20px] bg-success/12 px-3 py-1.5 font-mono text-[12px] font-bold text-text-success">
             <RecoveryIcon className="h-3.5 w-3.5" /> Reports
           </span>
         </div>
         <button
           type="button"
           onClick={() => window.print()}
-          className="no-print flex shrink-0 items-center gap-2 rounded-[4px] border border-border bg-bg px-3.5 py-2.5 font-mono text-[11px] font-bold text-ink-soft hover:bg-hover hover:text-ink"
+          className="no-print flex shrink-0 items-center gap-2 rounded-[4px] border border-border bg-bg px-3.5 py-2.5 font-mono text-[12.5px] font-bold text-ink-soft hover:bg-hover hover:text-ink"
         >
           <PrinterIcon className="h-3.5 w-3.5" />
           Print / Save as PDF
@@ -72,10 +72,9 @@ export function Overview() {
           label="Notice of Loss — awaiting review"
           accent="warning"
           caption={
-            <span className="flex flex-wrap gap-x-1 gap-y-0.5 font-mono text-[10.5px]">
-              {stageCounts.map(({ stage, count }, i) => (
+            <span className="flex flex-col gap-0.5 font-mono text-[12px]">
+              {stageCounts.map(({ stage, count }) => (
                 <span key={stage}>
-                  {i > 0 && <span className="mr-1 text-ink-soft/50">·</span>}
                   {count} {STAGE_LABEL[stage].toLowerCase()}
                 </span>
               ))}

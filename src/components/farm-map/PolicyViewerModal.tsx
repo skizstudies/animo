@@ -10,8 +10,8 @@ interface PolicyViewerModalProps {
 
 function Field({ label, value }: { label: string; value: string }) {
   return (
-    <div className="flex items-center justify-between gap-4 border-b border-divider py-2 text-[12.5px] last:border-b-0">
-      <span className="font-mono text-[10.5px] text-ink-soft uppercase">{label}</span>
+    <div className="flex items-center justify-between gap-4 border-b border-divider py-2 text-[14.5px] last:border-b-0">
+      <span className="font-mono text-[12px] text-ink-soft uppercase">{label}</span>
       <span className="font-bold text-ink">{value}</span>
     </div>
   );
@@ -34,10 +34,10 @@ export function PolicyViewerModal({ farm, policy, onClose }: PolicyViewerModalPr
       >
         <div className="flex shrink-0 items-center justify-between border-b border-divider bg-bg px-5 py-4">
           <div>
-            <span className="font-mono text-[10px] font-bold tracking-[1px] text-ink-soft uppercase">
+            <span className="font-mono text-[11.5px] font-bold tracking-[1px] text-ink-soft uppercase">
               Agent-generated document · Phase 1
             </span>
-            <h3 className="mt-0.5 text-[14.5px] font-extrabold text-ink">Application for Crop Insurance</h3>
+            <h3 className="mt-0.5 text-[16.5px] font-extrabold text-ink">Application for Crop Insurance</h3>
           </div>
           <button
             type="button"
@@ -50,7 +50,7 @@ export function PolicyViewerModal({ farm, policy, onClose }: PolicyViewerModalPr
         </div>
 
         <div className="flex-1 overflow-y-auto px-5 py-4">
-          <p className="mb-3 text-[13px] leading-relaxed text-ink">
+          <p className="mb-3 text-[15px] leading-relaxed text-ink">
             Drafted and submitted by the agent the moment {farm.farmerName}'s parcel was mapped and this crop cycle
             was registered — months before any hazard event. PCIC underwrote and approved this policy while the
             crop was still in its vegetative state.
@@ -66,7 +66,7 @@ export function PolicyViewerModal({ farm, policy, onClose }: PolicyViewerModalPr
             <Field label="Registered" value={policy.registeredDateLabel ?? "—"} />
             <Field label="Prepared by" value="ANIMO agent" />
           </div>
-          <p className="mt-3 text-[11.5px] text-ink-soft">
+          <p className="mt-3 text-[13px] text-ink-soft">
             The baseline satellite pass above serves as proof of planting, submitted alongside this application.
           </p>
         </div>

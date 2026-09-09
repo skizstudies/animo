@@ -23,12 +23,12 @@ export function Sidebar({ activePage, onNavigate }: SidebarProps) {
   return (
     <aside className="no-print panel-corners panel-corners-light relative flex w-[264px] shrink-0 flex-col rounded-[6px] border border-success/20 bg-gradient-to-b from-sidebar to-sidebar-deep p-[18px] pt-[26px] text-white shadow-[var(--shadow)]">
       <div className="flex items-center gap-[11px] px-2 pb-[26px]">
-        <div className="h-[38px] w-[38px] shrink-0 overflow-hidden rounded-[6px]">
+        <div className="h-[52px] w-[52px] shrink-0 overflow-hidden rounded-[6px]">
           <img src="/animo-logo.png" alt="ANIMO" className="h-full w-full object-contain" />
         </div>
         <div className="flex flex-col leading-tight">
-          <span className="text-[18px] font-extrabold tracking-tight">ANIMO</span>
-          <span className="mt-0.5 text-[11.5px] text-white/55">Kita. Benta. Tara.</span>
+          <span className="text-[23px] font-extrabold tracking-tight">ANIMO</span>
+          <span className="mt-0.5 text-[14.5px] text-white/55">Tukoy. Tugon. Bangon.</span>
         </div>
       </div>
 
@@ -63,12 +63,12 @@ export function Sidebar({ activePage, onNavigate }: SidebarProps) {
         onClick={() => setProfileOpen(true)}
         className="flex items-center gap-2.5 rounded-[6px] bg-white/[0.07] p-3 text-left transition-colors hover:bg-white/[0.13]"
       >
-        <div className="flex h-[34px] w-[34px] shrink-0 items-center justify-center rounded-[10px] bg-success text-[13px] font-bold text-sidebar-deep">
+        <div className="flex h-[34px] w-[34px] shrink-0 items-center justify-center rounded-[10px] bg-success text-[15px] font-bold text-sidebar-deep">
           RB
         </div>
         <div className="leading-tight">
-          <div className="text-[13px] font-bold text-white">Regina Bool</div>
-          <div className="text-[11px] text-white/50">Head · Coop Alangilan</div>
+          <div className="text-[15px] font-bold text-white">Regina Bool</div>
+          <div className="text-[12.5px] text-white/50">Head · Coop Alangilan</div>
         </div>
         <ChevronRightIcon className="ml-auto h-3.5 w-3.5 shrink-0 stroke-white/45" />
       </button>

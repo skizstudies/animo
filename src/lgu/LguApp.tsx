@@ -13,18 +13,18 @@ export function LguApp() {
     <div className="flex h-screen flex-col gap-4 p-5">
       <header className="panel-corners flex shrink-0 flex-wrap items-center gap-4 rounded-[6px] border border-border bg-card px-5 py-4 shadow-[var(--shadow-sm)]">
         <div className="flex items-center gap-3">
-          <div className="h-9 w-9 shrink-0 overflow-hidden rounded-[10px] bg-sidebar">
+          <div className="h-12 w-12 shrink-0 overflow-hidden rounded-[10px] bg-sidebar">
             <img src="/animo-logo.png" alt="ANIMO" className="h-full w-full object-contain" />
           </div>
           <div>
-            <div className="text-[15px] font-extrabold text-ink">LGU Disaster Monitoring</div>
-            <div className="text-[11.5px] text-ink-soft">Municipal Disaster Risk Reduction Office · Batangas</div>
+            <div className="text-[17px] font-extrabold text-ink">LGU Disaster Monitoring</div>
+            <div className="text-[13px] text-ink-soft">Municipal Disaster Risk Reduction Office · Batangas</div>
           </div>
         </div>
 
         <div className="flex-1" />
 
-        <span className="font-mono text-[12px] font-bold text-ink-soft">
+        <span className="font-mono text-[14px] font-bold text-ink-soft">
           {date} · {time}
         </span>
         <button
@@ -39,7 +39,7 @@ export function LguApp() {
           href="/"
           target="_blank"
           rel="noopener noreferrer"
-          className="shrink-0 rounded-[10px] border border-border bg-bg px-3 py-2 font-mono text-[10.5px] font-bold text-ink-soft hover:text-ink"
+          className="shrink-0 rounded-[10px] border border-border bg-bg px-3 py-2 font-mono text-[12px] font-bold text-ink-soft hover:text-ink"
         >
           Cooperative view ↗
         </a>

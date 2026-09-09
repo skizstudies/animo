@@ -11,19 +11,19 @@ export function GisOverviewPlaceholder() {
         <FarmMapIcon className="h-7 w-7" />
       </div>
       <div>
-        <span className="font-mono text-[10px] font-bold tracking-[1.2px] text-ink-soft uppercase">
+        <span className="font-mono text-[11.5px] font-bold tracking-[1.2px] text-ink-soft uppercase">
           GIS map — placeholder
         </span>
-        <h3 className="mt-1 text-[15px] font-extrabold text-ink">Farm status, municipality-wide</h3>
-        <p className="mx-auto mt-1 max-w-[38ch] text-[12.5px] text-ink-soft">
+        <h3 className="mt-1 text-[17px] font-extrabold text-ink">Farm status, municipality-wide</h3>
+        <p className="mx-auto mt-1 max-w-[38ch] text-[14.5px] text-ink-soft">
           Integrating from the same GIS workstream feeding the cooperative dashboard.
         </p>
       </div>
       <div className="flex items-center gap-5">
-        <span className="flex items-center gap-1.5 font-mono text-[10.5px] text-ink-soft">
+        <span className="flex items-center gap-1.5 font-mono text-[12px] text-ink-soft">
           <i className="inline-block h-1.5 w-1.5 rounded-full bg-success" /> {activeCount} active
         </span>
-        <span className="flex items-center gap-1.5 font-mono text-[10.5px] text-ink-soft">
+        <span className="flex items-center gap-1.5 font-mono text-[12px] text-ink-soft">
           <i className="inline-block h-1.5 w-1.5 rounded-full bg-dot-muted" /> {inactiveCount} inactive
         </span>
       </div>

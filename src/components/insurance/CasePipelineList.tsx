@@ -33,10 +33,10 @@ export function CasePipelineList({
   return (
     <div className="panel-corners flex flex-1 flex-col rounded-[6px] border border-border bg-card p-5 shadow-[var(--shadow-sm)]">
       <div className="mb-3 shrink-0">
-        <span className="font-mono text-[10px] font-bold tracking-[1.2px] text-ink-soft uppercase">
+        <span className="font-mono text-[11.5px] font-bold tracking-[1.2px] text-ink-soft uppercase">
           Agent pipeline · live
         </span>
-        <h3 className="mt-0.5 text-[15px] font-extrabold text-ink">
+        <h3 className="mt-0.5 text-[17px] font-extrabold text-ink">
           {cases.filter((c) => c.stage === "sent").length} of {cases.length} sent to PCIC
         </h3>
       </div>
@@ -61,16 +61,16 @@ export function CasePipelineList({
                 className="flex flex-1 items-center gap-3 px-1 py-0.5 text-left"
               >
                 <div className="min-w-0 flex-1">
-                  <div className="truncate text-[13px] font-bold text-ink">{c.farmerName}</div>
+                  <div className="truncate text-[15px] font-bold text-ink">{c.farmerName}</div>
                   {farm && (
-                    <div className="text-[11.5px] text-ink-soft">
+                    <div className="text-[13px] text-ink-soft">
                       {farm.crop} · {farm.areaHa.toFixed(1)} ha
                     </div>
                   )}
                 </div>
                 {!needsReview && (
                   <div className="flex shrink-0 flex-col items-end gap-1">
-                    <span className="font-mono text-[10.5px] font-bold text-ink-soft">
+                    <span className="font-mono text-[12px] font-bold text-ink-soft">
                       {STAGE_LABEL[c.stage]}
                       {lastLog && <span className="font-normal text-ink-soft/70"> · {lastLog.timeLabel}</span>}
                     </span>
@@ -83,7 +83,7 @@ export function CasePipelineList({
                 <button
                   type="button"
                   onClick={() => onReviewCase(c.id)}
-                  className="flex shrink-0 items-center gap-1.5 rounded-[4px] bg-sidebar px-3 py-2 font-mono text-[11px] font-bold text-white hover:bg-sidebar-deep"
+                  className="flex shrink-0 items-center gap-1.5 rounded-[4px] bg-sidebar px-3 py-2 font-mono text-[12.5px] font-bold text-white hover:bg-sidebar-deep"
                 >
                   <DocumentIcon className="h-3.5 w-3.5" />
                   Review documents
@@ -93,7 +93,7 @@ export function CasePipelineList({
                 <button
                   type="button"
                   onClick={() => onReviewCase(c.id)}
-                  className="flex shrink-0 items-center gap-1 font-mono text-[10.5px] font-bold text-ink-soft hover:text-ink"
+                  className="flex shrink-0 items-center gap-1 font-mono text-[12px] font-bold text-ink-soft hover:text-ink"
                 >
                   <DocumentIcon className="h-3.5 w-3.5" />
                   View

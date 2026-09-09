@@ -12,10 +12,10 @@ export function FarmDirectory({ farms, policies, selectedId, onSelect }: FarmDir
   return (
     <div className="panel-corners flex min-h-0 flex-1 flex-col rounded-[6px] border border-border bg-card p-5 shadow-[var(--shadow-sm)]">
       <div className="mb-3 shrink-0">
-        <span className="font-mono text-[10px] font-bold tracking-[1.2px] text-ink-soft uppercase">
+        <span className="font-mono text-[11.5px] font-bold tracking-[1.2px] text-ink-soft uppercase">
           Farm directory
         </span>
-        <h3 className="mt-0.5 text-[15px] font-extrabold text-ink">{farms.length} parcels mapped</h3>
+        <h3 className="mt-0.5 text-[17px] font-extrabold text-ink">{farms.length} parcels mapped</h3>
       </div>
       <div className="flex min-h-0 flex-1 flex-col gap-1.5 overflow-y-auto pr-1">
         {farms.map((farm) => {
@@ -32,8 +32,8 @@ export function FarmDirectory({ farms, policies, selectedId, onSelect }: FarmDir
             >
               <i className={`h-2 w-2 shrink-0 rounded-full ${farm.status === "active" ? "bg-success" : "bg-dot-muted"}`} />
               <div className="min-w-0 flex-1">
-                <div className="truncate text-[12.5px] font-bold text-ink">{farm.farmerName}</div>
-                <div className="text-[11px] text-ink-soft">
+                <div className="truncate text-[14.5px] font-bold text-ink">{farm.farmerName}</div>
+                <div className="text-[12.5px] text-ink-soft">
                   {farm.barangay} · {farm.crop} · {farm.areaHa.toFixed(1)} ha
                 </div>
               </div>

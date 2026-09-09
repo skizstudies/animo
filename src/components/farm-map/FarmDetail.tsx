@@ -16,7 +16,7 @@ export function FarmDetail({ farm, policy, insuranceRecord, inRecoveryReport }: 
 
   if (!farm) {
     return (
-      <div className="flex shrink-0 items-center justify-center rounded-[6px] border border-border bg-card px-5 py-5 text-[12.5px] text-ink-soft shadow-[var(--shadow-sm)]">
+      <div className="flex shrink-0 items-center justify-center rounded-[6px] border border-border bg-card px-5 py-5 text-[14.5px] text-ink-soft shadow-[var(--shadow-sm)]">
         Select a farm from the directory, or click through from Insurance.
       </div>
     );
@@ -26,16 +26,16 @@ export function FarmDetail({ farm, policy, insuranceRecord, inRecoveryReport }: 
     <div className="panel-corners flex shrink-0 flex-wrap items-center gap-x-6 gap-y-3 rounded-[6px] border border-border bg-card px-5 py-4 shadow-[var(--shadow-sm)]">
       <div className="min-w-[180px]">
         <div className="flex items-center gap-2">
-          <span className="text-[14px] font-extrabold text-ink">{farm.farmerName}</span>
+          <span className="text-[16px] font-extrabold text-ink">{farm.farmerName}</span>
           <span
-            className={`rounded-[20px] px-2 py-0.5 font-mono text-[9.5px] font-bold uppercase ${
+            className={`rounded-[20px] px-2 py-0.5 font-mono text-[11px] font-bold uppercase ${
               farm.status === "active" ? "bg-success/12 text-text-success" : "bg-hover text-ink-soft"
             }`}
           >
             {farm.status}
           </span>
         </div>
-        <p className="text-[12px] text-ink-soft">
+        <p className="text-[14px] text-ink-soft">
           {farm.barangay} · {farm.crop} · {farm.areaHa.toFixed(1)} ha
         </p>
       </div>
@@ -45,30 +45,30 @@ export function FarmDetail({ farm, policy, insuranceRecord, inRecoveryReport }: 
           <button
             type="button"
             onClick={() => setPolicyOpen(true)}
-            className="flex items-center gap-1.5 rounded-[20px] bg-success/12 px-3 py-1.5 font-mono text-[11px] font-bold text-text-success hover:bg-success/20"
+            className="flex items-center gap-1.5 rounded-[20px] bg-success/12 px-3 py-1.5 font-mono text-[12.5px] font-bold text-text-success hover:bg-success/20"
           >
             <ShieldIcon className="h-3.5 w-3.5" />
             Insured{policy.policyNo ? ` · #${policy.policyNo.slice(-6)}` : ""}
           </button>
         ) : (
-          <span className="flex items-center gap-1.5 rounded-[20px] bg-hover px-3 py-1.5 font-mono text-[11px] font-bold text-ink-soft">
+          <span className="flex items-center gap-1.5 rounded-[20px] bg-hover px-3 py-1.5 font-mono text-[12.5px] font-bold text-ink-soft">
             <ShieldOffIcon className="h-3.5 w-3.5" />
             Not insured
           </span>
         ))}
 
       {insuranceRecord && (
-        <span className="rounded-[20px] bg-warning/14 px-3 py-1.5 font-mono text-[11px] font-bold text-text-warn">
+        <span className="rounded-[20px] bg-warning/14 px-3 py-1.5 font-mono text-[12.5px] font-bold text-text-warn">
           Notice of Loss: {insuranceRecord.estimatedLossPct}% est. loss
         </span>
       )}
       {inRecoveryReport && (
-        <span className="rounded-[20px] bg-success/12 px-3 py-1.5 font-mono text-[11px] font-bold text-text-success">
+        <span className="rounded-[20px] bg-success/12 px-3 py-1.5 font-mono text-[12.5px] font-bold text-text-success">
           Recovery: included in the Road to Recovery report
         </span>
       )}
       {!policy && !insuranceRecord && !inRecoveryReport && (
-        <span className="font-mono text-[11px] text-ink-soft">No open Insurance or Recovery activity.</span>
+        <span className="font-mono text-[12.5px] text-ink-soft">No open Insurance or Recovery activity.</span>
       )}
 
       {policyOpen && insured && <PolicyViewerModal farm={farm} policy={policy} onClose={() => setPolicyOpen(false)} />}

@@ -38,17 +38,17 @@ export function ReportSectionList({ sections, viewState, onOpen }: ReportSection
             }`}
           >
             <div className="min-w-0 flex-1">
-              <div className="text-[13px] font-bold text-ink">{section.title}</div>
+              <div className="text-[15px] font-bold text-ink">{section.title}</div>
             </div>
             <span
-              className={`shrink-0 rounded-[20px] px-2.5 py-1 font-mono text-[10px] font-bold uppercase ${
+              className={`shrink-0 rounded-[20px] px-2.5 py-1 font-mono text-[11.5px] font-bold uppercase ${
                 needsInput ? "bg-warning/16 text-text-warn" : "bg-success/12 text-text-success"
               }`}
             >
               {label}
             </span>
             {state?.timeInfo && (
-              <span className="hidden shrink-0 font-mono text-[10.5px] text-ink-soft sm:block">
+              <span className="hidden shrink-0 font-mono text-[12px] text-ink-soft sm:block">
                 {state.timeInfo.timeLabel}
               </span>
             )}

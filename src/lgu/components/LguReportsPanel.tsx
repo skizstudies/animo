@@ -19,8 +19,8 @@ export function LguReportsPanel() {
     <div className="panel-corners flex min-h-[360px] flex-1 overflow-hidden rounded-[6px] border border-border bg-card shadow-[var(--shadow-sm)]">
       <div className="flex w-[220px] shrink-0 flex-col border-r border-divider">
         <div className="shrink-0 border-b border-divider px-4 py-3">
-          <span className="font-mono text-[10px] font-bold tracking-[1.2px] text-ink-soft uppercase">Reports inbox</span>
-          <h3 className="mt-0.5 text-[13.5px] font-extrabold text-ink">{SUBMITTED_REPORTS.length} received</h3>
+          <span className="font-mono text-[11.5px] font-bold tracking-[1.2px] text-ink-soft uppercase">Reports inbox</span>
+          <h3 className="mt-0.5 text-[15.5px] font-extrabold text-ink">{SUBMITTED_REPORTS.length} received</h3>
         </div>
         <div className="flex flex-col gap-1 overflow-y-auto p-2">
           {SUBMITTED_REPORTS.map((r) => {
@@ -34,8 +34,8 @@ export function LguReportsPanel() {
                   active ? "border-success/35 bg-success/8" : "border-transparent hover:bg-hover"
                 }`}
               >
-                <div className="truncate text-[12.5px] font-bold text-ink">{r.hazardName}</div>
-                <div className="text-[11px] text-ink-soft">
+                <div className="truncate text-[14.5px] font-bold text-ink">{r.hazardName}</div>
+                <div className="text-[12.5px] text-ink-soft">
                   {r.clusterId} · {r.receivedLabel}
                 </div>
               </button>
@@ -49,16 +49,16 @@ export function LguReportsPanel() {
           <>
             <div className="mb-3 flex shrink-0 flex-wrap items-center justify-between gap-3">
               <div>
-                <span className="font-mono text-[10px] font-bold tracking-[1.2px] text-ink-soft uppercase">
+                <span className="font-mono text-[11.5px] font-bold tracking-[1.2px] text-ink-soft uppercase">
                   Received from Road to Recovery
                 </span>
-                <h3 className="mt-0.5 text-[15px] font-extrabold text-ink">
+                <h3 className="mt-0.5 text-[17px] font-extrabold text-ink">
                   Damage Assessment Report — {selected.clusterId}
                 </h3>
               </div>
               <div className="flex items-center gap-2 rounded-[20px] bg-success/10 px-3 py-1.5">
                 <CheckCircleIcon className="h-3.5 w-3.5 text-text-success" />
-                <span className="font-mono text-[11px] font-bold text-text-success">
+                <span className="font-mono text-[12.5px] font-bold text-text-success">
                   Ref. {selected.referenceNo} · {selected.receivedLabel}
                 </span>
               </div>
@@ -73,16 +73,16 @@ export function LguReportsPanel() {
                   className="rounded-[6px] border border-border bg-bg px-4 py-3 text-left transition-colors hover:border-success/40 hover:bg-success/6"
                 >
                   <div className="flex items-start justify-between gap-2">
-                    <h4 className="text-[12.5px] font-bold text-ink">{section.title}</h4>
-                    <span className="shrink-0 font-mono text-[10px] font-bold text-text-success uppercase">Read</span>
+                    <h4 className="text-[14.5px] font-bold text-ink">{section.title}</h4>
+                    <span className="shrink-0 font-mono text-[11.5px] font-bold text-text-success uppercase">Read</span>
                   </div>
-                  <p className="mt-1 line-clamp-2 text-[12px] leading-relaxed text-ink-soft">{section.content}</p>
+                  <p className="mt-1 line-clamp-2 text-[14px] leading-relaxed text-ink-soft">{section.content}</p>
                 </button>
               ))}
             </div>
           </>
         ) : (
-          <div className="flex flex-1 items-center justify-center text-[12.5px] text-ink-soft">No reports received yet.</div>
+          <div className="flex flex-1 items-center justify-center text-[14.5px] text-ink-soft">No reports received yet.</div>
         )}
       </div>
 

@@ -16,8 +16,8 @@ interface DocumentViewerModalProps {
 
 function Field({ label, value }: { label: string; value: string }) {
   return (
-    <div className="flex items-center justify-between gap-4 border-b border-divider py-2 text-[12.5px] last:border-b-0">
-      <span className="font-mono text-[10.5px] text-ink-soft uppercase">{label}</span>
+    <div className="flex items-center justify-between gap-4 border-b border-divider py-2 text-[14.5px] last:border-b-0">
+      <span className="font-mono text-[12px] text-ink-soft uppercase">{label}</span>
       <span className="font-bold text-ink">{value}</span>
     </div>
   );
@@ -45,10 +45,10 @@ export function DocumentViewerModal({ docId, insuranceCase, farm, hazard, policy
       >
         <div className="flex shrink-0 items-center justify-between border-b border-divider bg-bg px-5 py-4">
           <div>
-            <span className="font-mono text-[10px] font-bold tracking-[1px] text-ink-soft uppercase">
+            <span className="font-mono text-[11.5px] font-bold tracking-[1px] text-ink-soft uppercase">
               Agent-generated document
             </span>
-            <h3 className="mt-0.5 text-[14.5px] font-extrabold text-ink">
+            <h3 className="mt-0.5 text-[16.5px] font-extrabold text-ink">
               {docId === "notice" && "PCIC Notice of Loss"}
               {docId === "summary" && "Damage Assessment Summary"}
               {docId === "evidence" && "Photo & Satellite Evidence Package"}
@@ -67,7 +67,7 @@ export function DocumentViewerModal({ docId, insuranceCase, farm, hazard, policy
         <div className="flex-1 overflow-y-auto px-5 py-4">
           {docId === "notice" && (
             <div>
-              <p className="mb-3 text-center font-mono text-[10.5px] font-bold tracking-[1px] text-ink-soft uppercase">
+              <p className="mb-3 text-center font-mono text-[12px] font-bold tracking-[1px] text-ink-soft uppercase">
                 Philippine Crop Insurance Corporation
               </p>
               <div className="rounded-[6px] border border-divider bg-bg px-4">
@@ -87,7 +87,7 @@ export function DocumentViewerModal({ docId, insuranceCase, farm, hazard, policy
 
           {docId === "summary" && (
             <div>
-              <p className="text-[13px] leading-relaxed text-ink">
+              <p className="text-[15px] leading-relaxed text-ink">
                 Sentinel-2 change detection over {hazard.clusterName} ({hazard.clusterId}) shows crop-health decline
                 consistent with {hazard.name} (Signal No. {hazard.signal}), comparing passes on {hazard.preImageDate}{" "}
                 and {hazard.postImageDate}. {insuranceCase.farmerName}'s {farm.crop.toLowerCase()} farm (
@@ -115,7 +115,7 @@ export function DocumentViewerModal({ docId, insuranceCase, farm, hazard, policy
                 <Field label="Post-event pass" value={hazard.postImageDate} />
                 <Field label="Cluster" value={hazard.clusterId} />
               </div>
-              <p className="mt-3 text-[11.5px] text-ink-soft">
+              <p className="mt-3 text-[13px] text-ink-soft">
                 Full interactive before/after comparison is available on the hazard's Satellite Evidence panel.
               </p>
             </div>

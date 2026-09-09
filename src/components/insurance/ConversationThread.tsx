@@ -13,12 +13,12 @@ export function ConversationThread({ insuranceCase, policy, onBack }: Conversati
     <div className="panel-corners flex flex-1 flex-col rounded-[6px] border border-border bg-card p-5 shadow-[var(--shadow-sm)]">
       <div className="mb-4 flex shrink-0 items-start justify-between gap-3">
         <div>
-          <span className="font-mono text-[10px] font-bold tracking-[1.2px] text-ink-soft uppercase">
+          <span className="font-mono text-[11.5px] font-bold tracking-[1.2px] text-ink-soft uppercase">
             Agent conversation · simulated SMS
           </span>
-          <h3 className="mt-0.5 text-[15px] font-extrabold text-ink">{insuranceCase.farmerName}</h3>
+          <h3 className="mt-0.5 text-[17px] font-extrabold text-ink">{insuranceCase.farmerName}</h3>
           {policy?.policyNo && (
-            <p className="mt-0.5 font-mono text-[10.5px] text-ink-soft">
+            <p className="mt-0.5 font-mono text-[12px] text-ink-soft">
               Policy #{policy.policyNo} · active since {policy.registeredDateLabel}
             </p>
           )}
@@ -26,7 +26,7 @@ export function ConversationThread({ insuranceCase, policy, onBack }: Conversati
         <button
           type="button"
           onClick={onBack}
-          className="shrink-0 rounded-[4px] border border-border px-3 py-2 font-mono text-[11px] font-bold text-ink-soft hover:bg-hover hover:text-ink"
+          className="shrink-0 rounded-[4px] border border-border px-3 py-2 font-mono text-[12.5px] font-bold text-ink-soft hover:bg-hover hover:text-ink"
         >
           ← Satellite evidence
         </button>
@@ -38,8 +38,8 @@ export function ConversationThread({ insuranceCase, policy, onBack }: Conversati
           return (
             <div key={m.id} className={`flex ${fromAgent ? "justify-end" : "justify-start"}`}>
               <div className={`max-w-[80%] rounded-[14px] px-3.5 py-2.5 ${fromAgent ? "bg-sidebar text-white" : "border border-border bg-bg text-ink"}`}>
-                <p className="text-[13px] leading-snug">{m.text}</p>
-                <span className={`mt-1 block text-right font-mono text-[10px] ${fromAgent ? "text-white/60" : "text-ink-soft"}`}>
+                <p className="text-[15px] leading-snug">{m.text}</p>
+                <span className={`mt-1 block text-right font-mono text-[11.5px] ${fromAgent ? "text-white/60" : "text-ink-soft"}`}>
                   {m.timeLabel}
                 </span>
               </div>
@@ -51,7 +51,7 @@ export function ConversationThread({ insuranceCase, policy, onBack }: Conversati
       {insuranceCase.consented && (
         <div className="mt-3 flex shrink-0 items-center gap-2 rounded-[6px] border border-success/30 bg-success/8 px-3.5 py-2.5">
           <CheckCircleIcon className="h-4 w-4 text-text-success" />
-          <span className="text-[12px] font-bold text-text-success">Farmer consented — agent proceeding on their behalf</span>
+          <span className="text-[14px] font-bold text-text-success">Farmer consented — agent proceeding on their behalf</span>
         </div>
       )}
 

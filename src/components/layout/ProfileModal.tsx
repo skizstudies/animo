@@ -8,8 +8,8 @@ interface ProfileModalProps {
 
 function Field({ label, value }: { label: string; value: string }) {
   return (
-    <div className="flex items-center justify-between gap-4 border-b border-divider py-2.5 text-[12.5px] last:border-b-0">
-      <span className="font-mono text-[10.5px] text-ink-soft uppercase">{label}</span>
+    <div className="flex items-center justify-between gap-4 border-b border-divider py-2.5 text-[14.5px] last:border-b-0">
+      <span className="font-mono text-[12px] text-ink-soft uppercase">{label}</span>
       <span className="font-bold text-ink">{value}</span>
     </div>
   );
@@ -31,12 +31,12 @@ export function ProfileModal({ onClose }: ProfileModalProps) {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center gap-3 bg-gradient-to-b from-sidebar to-sidebar-deep px-5 py-5 text-white">
-          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[8px] bg-success text-[15px] font-bold text-sidebar-deep">
+          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[8px] bg-success text-[17px] font-bold text-sidebar-deep">
             RB
           </div>
           <div className="min-w-0 flex-1">
-            <div className="text-[15px] font-extrabold">Regina Bool</div>
-            <div className="text-[11.5px] text-white/60">Head · Coop Alangilan</div>
+            <div className="text-[17px] font-extrabold">Regina Bool</div>
+            <div className="text-[13px] text-white/60">Head · Coop Alangilan</div>
           </div>
           <button
             type="button"
@@ -49,7 +49,7 @@ export function ProfileModal({ onClose }: ProfileModalProps) {
         </div>
 
         <div className="px-5 py-4">
-          <span className="font-mono text-[10px] font-bold tracking-[1px] text-ink-soft uppercase">
+          <span className="font-mono text-[11.5px] font-bold tracking-[1px] text-ink-soft uppercase">
             Account details
           </span>
           <div className="mt-2">

@@ -30,10 +30,10 @@ export function StatTile({ icon: Icon, value, label, accent = "success", caption
         <Icon className="h-5 w-5" />
       </div>
       <div>
-        <div className="text-[34px] leading-none font-extrabold tracking-tight text-ink">{value}</div>
-        <div className="mt-1.5 font-mono text-[10.5px] font-bold tracking-[0.8px] text-ink-soft uppercase">{label}</div>
+        <div className="text-[39px] leading-none font-extrabold tracking-tight text-ink">{value}</div>
+        <div className="mt-1.5 font-mono text-[12px] font-bold tracking-[0.8px] text-ink-soft uppercase">{label}</div>
       </div>
-      {caption && <div className="mt-auto text-[11.5px] text-ink-soft">{caption}</div>}
+      {caption && <div className="mt-auto text-[13px] text-ink-soft">{caption}</div>}
     </div>
   );
 }
